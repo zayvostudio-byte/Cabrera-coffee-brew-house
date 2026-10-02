@@ -1,0 +1,6 @@
+{
+  "name": "Cabrera Coffee Brew House",
+  "description": "Specialty coffee roastery, gourmet brunch, artisanal bakery, online ordering, dine-in and takeout, and real-time table reservations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
