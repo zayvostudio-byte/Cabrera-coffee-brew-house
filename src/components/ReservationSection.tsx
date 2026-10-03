@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
 import { SeatingArea, Reservation } from '../types';
 import confetti from 'canvas-confetti';
 import {
@@ -98,12 +97,8 @@ export const ReservationSection: React.FC<ReservationSectionProps> = ({
     e.preventDefault();
     setErrorMsg('');
 
-    if (!guestName.trim()) {
-      setErrorMsg(lang === 'en' ? 'Please enter primary guest name.' : 'Por favor ingresa tu nombre completo.');
-      return;
-    }
-    if (!guestPhone.trim()) {
-      setErrorMsg(lang === 'en' ? 'Please enter your WhatsApp or phone number.' : 'Por favor ingresa tu número de WhatsApp para confirmar.');
+    if (!guestName.trim() || !guestEmail.trim() || !guestPhone.trim()) {
+      setErrorMsg(lang === 'en' ? 'Please complete all required fields.' : 'Por favor completa todos los campos requeridos.');
       return;
     }
 
@@ -111,9 +106,9 @@ export const ReservationSection: React.FC<ReservationSectionProps> = ({
 
     setTimeout(() => {
       setIsSubmitting(false);
-      const code = `RES-${Math.floor(10000 + Math.random() * 90000)}`;
+      const code = 'CB-' + Math.floor(1000 + Math.random() * 9000);
       const res: Reservation = {
-        id: `res-${Date.now()}`,
+        id: 'res-' + Date.now(),
         code,
         guestName,
         email: guestEmail,
@@ -122,9 +117,9 @@ export const ReservationSection: React.FC<ReservationSectionProps> = ({
         date: selectedDate,
         timeSlot: selectedTime,
         seatingArea: selectedArea,
-        specialRequests: specialRequests.trim() || undefined,
+        specialRequests,
         status: 'confirmed',
-        createdAt: new Date().toLocaleTimeString(),
+        createdAt: new Date().toISOString(),
       };
 
       setConfirmedReservation(res);
@@ -134,13 +129,13 @@ export const ReservationSection: React.FC<ReservationSectionProps> = ({
 
       try {
         confetti({
-          particleCount: 70,
-          spread: 60,
+          particleCount: 60,
+          spread: 55,
           origin: { y: 0.65 },
-          colors: ['#b58548', '#34d399', '#ffffff'],
+          colors: ['#c85a17', '#e87532', '#ffffff'],
         });
-      } catch (e) {}
-    }, 1200);
+      } catch {}
+    }, 900);
   };
 
   const handleDownloadCalendar = () => {
@@ -151,7 +146,7 @@ PRODID:-//Cabrera Coffee Brew House//Reservas//EN
 BEGIN:VEVENT
 SUMMARY:Reservation at Cabrera Coffee Brew House (${confirmedReservation.code})
 DESCRIPTION:Reservation for ${confirmedReservation.partySize} guests at ${confirmedReservation.seatingArea.toUpperCase()}. Code: ${confirmedReservation.code}
-LOCATION:Plaza Cabrera, Vía Principal, Panamá
+LOCATION:Plaza Paseo Costa Verde, Blvd. Costa Verde, La Chorrera, Panamá
 STATUS:CONFIRMED
 END:VEVENT
 END:VCALENDAR`;
@@ -166,63 +161,57 @@ END:VCALENDAR`;
   };
 
   return (
-    <motion.section
+    <section
       id="reservas"
-      initial={{ opacity: 0.05 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true, amount: 0.06 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className={`py-20 border-t relative transition-colors ${
-        isLight ? 'bg-[#fcfbf9] border-[#e8e2d6] text-[#181513]' : 'bg-[#12100e] border-[#261f18] text-[#f7f5f0]'
+      className={`py-12 sm:py-16 border-t relative transition-colors opacity-100 ${
+        isLight ? 'bg-[#faf6ee] border-[#e4d8c7] text-[#24140b]' : 'bg-[#1c110a] border-[#382215] text-[#fcf9f4]'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center max-w-3xl mx-auto mb-14 space-y-3"
-        >
-          <div className="flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#b58548]">
-            <Calendar className="w-4 h-4" />
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-14 space-y-3">
+          <div className="flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-[#c85a17] font-mono">
+            <Calendar className="w-4 h-4 text-[#c85a17]" />
             <span>{t.resKicker}</span>
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-5xl font-black tracking-tight">
+          <h2 className={`font-serif text-3xl sm:text-5xl font-black tracking-tight ${
+            isLight ? 'text-[#24140b]' : 'text-[#fcf9f4]'
+          }`}>
             {t.resTitle}
           </h2>
 
-          <p className={`text-sm leading-relaxed ${isLight ? 'text-[#6e6356]' : 'text-[#b5a99b]'}`}>
+          <p className={`text-sm sm:text-base leading-relaxed ${
+            isLight ? 'text-[#5c4536]' : 'text-[#cfc1b4]'
+          }`}>
             {t.resSubtitle}
           </p>
-        </motion.div>
+        </div>
 
         {confirmedReservation ? (
           /* CONFIRMED RESERVATION VOUCHER */
-          <div className={`max-w-xl mx-auto rounded-2xl p-8 shadow-2xl border space-y-6 text-center animate-in zoom-in-95 duration-300 ${
-            isLight ? 'bg-white border-[#ded7ca]' : 'bg-[#1a1613] border-[#3f3226]'
+          <div className={`max-w-xl mx-auto rounded-2xl p-6 sm:p-8 shadow-2xl border space-y-6 text-center animate-in zoom-in-95 duration-200 ${
+            isLight ? 'bg-white border-[#e0d3c0]' : 'bg-[#26170f] border-[#3f271a]'
           }`}>
             <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-500 mx-auto">
               <CheckCircle2 className="w-8 h-8" />
             </div>
 
             <div className="space-y-1">
-              <span className="text-xs uppercase tracking-widest text-[#b58548] font-mono font-bold">
+              <span className="text-xs uppercase tracking-widest text-[#c85a17] font-mono font-bold">
                 {t.codeLabel} #{confirmedReservation.code}
               </span>
-              <h3 className="font-serif text-2xl font-bold">
+              <h3 className={`font-serif text-2xl font-bold ${isLight ? 'text-[#24140b]' : 'text-[#fcf9f4]'}`}>
                 {t.resConfirmedSuccess}
               </h3>
-              <p className={`text-xs ${isLight ? 'text-[#706456]' : 'text-[#a6998a]'}`}>
+              <p className={`text-xs ${isLight ? 'text-[#5c4536]' : 'text-[#cfc1b4]'}`}>
                 {t.waitingForYou}
               </p>
             </div>
 
             <div className={`p-5 rounded-xl border grid grid-cols-2 gap-4 text-left text-xs ${
-              isLight ? 'bg-[#faf8f5] border-[#e2dacf]' : 'bg-[#14110e] border-[#2b221a]'
+              isLight ? 'bg-[#faf6ee] border-[#e0d3c0]' : 'bg-[#1c110a] border-[#382215]'
             }`}>
               <div>
                 <span className="opacity-70 block">{t.dateLabel}</span>
@@ -230,7 +219,7 @@ END:VCALENDAR`;
               </div>
               <div>
                 <span className="opacity-70 block">{t.timeLabel}</span>
-                <span className="font-bold text-[#b58548] font-mono">{confirmedReservation.timeSlot}</span>
+                <span className="font-bold text-[#c85a17] font-mono">{confirmedReservation.timeSlot}</span>
               </div>
               <div>
                 <span className="opacity-70 block">{t.guestsLabel}</span>
@@ -241,7 +230,7 @@ END:VCALENDAR`;
                 <span className="font-bold capitalize">{confirmedReservation.seatingArea}</span>
               </div>
               {confirmedReservation.specialRequests && (
-                <div className={`col-span-2 pt-2 border-t ${isLight ? 'border-[#eee7db]' : 'border-[#241c16]'}`}>
+                <div className={`col-span-2 pt-2 border-t ${isLight ? 'border-[#e4d8c7]' : 'border-[#331f14]'}`}>
                   <span className="opacity-70 block">{t.specialRequestLabel}</span>
                   <span className="italic">"{confirmedReservation.specialRequests}"</span>
                 </div>
@@ -252,20 +241,20 @@ END:VCALENDAR`;
               <button
                 type="button"
                 onClick={handleDownloadCalendar}
-                className={`flex-1 py-3 px-4 text-xs font-semibold rounded-xl border transition-all flex items-center justify-center gap-2 ${
+                className={`flex-1 py-3 px-4 text-xs font-bold rounded-xl border transition-all flex items-center justify-center gap-2 ${
                   isLight
-                    ? 'bg-[#f4efe7] hover:bg-[#eae3d6] border-[#ded7ca]'
-                    : 'bg-[#261f18] hover:bg-[#342921] border-[#433527]'
+                    ? 'bg-white hover:bg-[#faf6ee] border-[#e0d3c0] text-[#24140b]'
+                    : 'bg-[#1c110a] hover:bg-[#331f14] border-[#3f271a] text-[#fcf9f4]'
                 }`}
               >
-                <Download className="w-4 h-4 text-[#b58548]" />
+                <Download className="w-4 h-4 text-[#c85a17]" />
                 <span>{t.addCalendarBtn}</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setConfirmedReservation(null)}
-                className="flex-1 py-3 px-4 bg-[#b58548] hover:bg-[#9c6e33] text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all"
+                className="flex-1 py-3 px-4 bg-[#c85a17] hover:bg-[#b54d0f] text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all"
               >
                 {t.makeAnotherRes}
               </button>
@@ -280,27 +269,23 @@ END:VCALENDAR`;
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <h3 className="font-serif text-lg font-bold flex items-center gap-2">
-                    <span className="w-6 h-6 rounded-full bg-[#b58548] text-white font-mono text-xs flex items-center justify-center font-bold">1</span>
+                    <span className="w-6 h-6 rounded-full bg-[#c85a17] text-white font-mono text-xs flex items-center justify-center font-bold">1</span>
                     {t.stepChooseArea}
                   </h3>
                   <span className="text-xs opacity-75">{t.areasAvailableCount}</span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                  {seatingAreas.map((area, idx) => {
+                  {seatingAreas.map((area) => {
                     const isSelected = selectedArea === area.id;
                     return (
-                      <motion.div
+                      <div
                         key={area.id}
-                        initial={{ opacity: 0, y: 12 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: idx * 0.05, ease: [0.16, 1, 0.3, 1] }}
                         onClick={() => setSelectedArea(area.id)}
-                        className={`p-3.5 rounded-xl border transition-all cursor-pointer flex flex-col justify-between group editorial-image-container ${
+                        className={`p-3.5 rounded-xl border transition-all duration-150 cursor-pointer flex flex-col justify-between group ${
                           isSelected
-                            ? 'border-[#b58548] bg-[#b58548]/10 shadow-md ring-1 ring-[#b58548]'
-                            : isLight ? 'border-[#ded7ca] bg-white hover:border-[#b58548]' : 'border-[#2d241c] bg-[#171310] hover:border-[#433527]'
+                            ? 'border-[#c85a17] bg-[#c85a17]/10 shadow-md ring-1 ring-[#c85a17]'
+                            : isLight ? 'border-[#e0d3c0] bg-white hover:border-[#c85a17]' : 'border-[#3f271a] bg-[#26170f] hover:border-[#c85a17]'
                         }`}
                       >
                         <div className="flex items-start gap-3">
@@ -312,49 +297,49 @@ END:VCALENDAR`;
                             />
                           </div>
                           <div>
-                            <h4 className="font-bold text-xs leading-snug">
+                            <h4 className={`font-bold text-xs leading-snug ${isLight ? 'text-[#24140b]' : 'text-[#fcf9f4]'}`}>
                               {area.title}
                             </h4>
-                            <span className="text-[10px] text-[#b58548] font-mono mt-0.5 block font-semibold">
+                            <span className="text-[10px] text-[#c85a17] font-mono mt-0.5 block font-bold">
                               {area.capacity}
                             </span>
                           </div>
                         </div>
 
-                        <p className={`text-[11px] mt-2 leading-relaxed ${isLight ? 'text-[#706456]' : 'text-[#9c8e7f]'}`}>
+                        <p className={`text-[11px] mt-2 leading-relaxed ${isLight ? 'text-[#5c4536]' : 'text-[#cfc1b4]'}`}>
                           {area.desc}
                         </p>
-                      </motion.div>
+                      </div>
                     );
                   })}
                 </div>
               </div>
 
               {/* Step 2: Date, Party Size & Time Slots */}
-              <div className={`space-y-4 pt-4 border-t ${isLight ? 'border-[#eee7db]' : 'border-[#261f18]'}`}>
+              <div className={`space-y-4 pt-4 border-t ${isLight ? 'border-[#e4d8c7]' : 'border-[#382215]'}`}>
                 <h3 className="font-serif text-lg font-bold flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-[#b58548] text-white font-mono text-xs flex items-center justify-center font-bold">2</span>
+                  <span className="w-6 h-6 rounded-full bg-[#c85a17] text-white font-mono text-xs flex items-center justify-center font-bold">2</span>
                   {t.stepDateTimeParty}
                 </h3>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs mb-1 font-medium opacity-80">{t.reservationDate}</label>
+                    <label className="block text-xs mb-1 font-semibold opacity-85">{t.reservationDate}</label>
                     <input
                       type="date"
                       min={todayStr}
                       value={selectedDate}
                       onChange={(e) => setSelectedDate(e.target.value)}
-                      className={`w-full border rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:border-[#b58548] ${
-                        isLight ? 'bg-white border-[#ded7ca]' : 'bg-[#1c1713] border-[#342a20] text-white'
+                      className={`w-full border rounded-xl px-3.5 py-2.5 text-xs font-medium focus:outline-none focus:border-[#c85a17] ${
+                        isLight ? 'bg-white border-[#e0d3c0] text-[#24140b]' : 'bg-[#26170f] border-[#3f271a] text-white'
                       }`}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs mb-1 font-medium opacity-80">{t.partySizeLabel}</label>
+                    <label className="block text-xs mb-1 font-semibold opacity-85">{t.partySizeLabel}</label>
                     <div className={`flex items-center gap-1.5 border rounded-xl p-1 ${
-                      isLight ? 'bg-white border-[#ded7ca]' : 'bg-[#1c1713] border-[#342a20]'
+                      isLight ? 'bg-white border-[#e0d3c0]' : 'bg-[#26170f] border-[#3f271a]'
                     }`}>
                       {[1, 2, 3, 4, 5, 6].map((num) => (
                         <button
@@ -363,7 +348,7 @@ END:VCALENDAR`;
                           onClick={() => setPartySize(num)}
                           className={`flex-1 py-1.5 text-xs font-mono font-bold rounded-lg transition-all ${
                             partySize === num
-                              ? 'bg-[#b58548] text-white'
+                              ? 'bg-[#c85a17] text-white shadow-sm'
                               : 'opacity-70 hover:opacity-100'
                           }`}
                         >
@@ -375,7 +360,7 @@ END:VCALENDAR`;
                         onClick={() => setPartySize(8)}
                         className={`px-2 py-1.5 text-xs font-mono font-bold rounded-lg transition-all ${
                           partySize >= 7
-                            ? 'bg-[#b58548] text-white'
+                            ? 'bg-[#c85a17] text-white shadow-sm'
                             : 'opacity-70 hover:opacity-100'
                         }`}
                       >
@@ -388,8 +373,8 @@ END:VCALENDAR`;
                 {/* Time Slots */}
                 <div className="space-y-2 pt-2">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-medium opacity-80">{t.availableSlotsLabel}</label>
-                    <span className="text-[11px] text-emerald-600 font-mono font-semibold">● Live Availability</span>
+                    <label className="text-xs font-semibold opacity-85">{t.availableSlotsLabel}</label>
+                    <span className="text-[11px] text-[#c85a17] font-mono font-bold">● Live Availability</span>
                   </div>
 
                   <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
@@ -400,10 +385,12 @@ END:VCALENDAR`;
                           key={slot.time}
                           type="button"
                           onClick={() => setSelectedTime(slot.time)}
-                          className={`py-2 px-1 text-center rounded-xl border text-xs font-mono font-semibold transition-all ${
+                          className={`py-2 px-1 text-center rounded-xl border text-xs font-mono font-bold transition-all ${
                             isSelected
-                              ? 'border-[#b58548] bg-[#b58548] text-white shadow-md'
-                              : isLight ? 'border-[#ded7ca] bg-white text-[#706456]' : 'border-[#2d241c] bg-[#1a1613] text-[#9c8e7f]'
+                              ? 'border-[#c85a17] bg-[#c85a17] text-white shadow-md'
+                              : isLight
+                                ? 'border-[#e0d3c0] bg-white text-[#5c4536] hover:border-[#c85a17]'
+                                : 'border-[#3f271a] bg-[#26170f] text-[#cfc1b4] hover:border-[#c85a17]'
                           }`}
                         >
                           <div>{slot.time}</div>
@@ -423,23 +410,19 @@ END:VCALENDAR`;
             </div>
 
             {/* Right 5 Columns: Step 3 (Guest Details) */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            <div
               className={`lg:col-span-5 border rounded-2xl p-6 space-y-6 flex flex-col justify-between shadow-lg ${
-                isLight ? 'bg-white border-[#ded7ca]' : 'bg-[#171310] border-[#33281f]'
+                isLight ? 'bg-white border-[#e0d3c0]' : 'bg-[#26170f] border-[#3f271a]'
               }`}
             >
               <div className="space-y-4">
                 <h3 className="font-serif text-lg font-bold flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-[#b58548] text-white font-mono text-xs flex items-center justify-center font-bold">3</span>
+                  <span className="w-6 h-6 rounded-full bg-[#c85a17] text-white font-mono text-xs flex items-center justify-center font-bold">3</span>
                   {t.stepGuestData}
                 </h3>
 
                 {errorMsg && (
-                  <div className="p-3 bg-rose-50 border border-rose-300 rounded-xl flex items-center gap-2 text-xs text-rose-800">
+                  <div className="p-3 bg-rose-50 border border-rose-300 rounded-xl flex items-center gap-2 text-xs text-rose-800 font-medium">
                     <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
                     <span>{errorMsg}</span>
                   </div>
@@ -447,103 +430,76 @@ END:VCALENDAR`;
 
                 <div className="space-y-3">
                   <div>
-                    <label className="block text-[11px] mb-1 font-medium opacity-80">{t.holderName}</label>
+                    <label className="block text-[11px] mb-1 font-semibold opacity-85">{t.holderName}</label>
                     <input
                       type="text"
                       required
                       value={guestName}
                       onChange={(e) => setGuestName(e.target.value)}
                       placeholder="Sofia Morales"
-                      className={`w-full border rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:border-[#b58548] ${
-                        isLight ? 'bg-[#faf8f5] border-[#ded7ca]' : 'bg-[#120f0d] border-[#332920] text-white'
+                      className={`w-full border rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:border-[#c85a17] ${
+                        isLight ? 'bg-[#faf6ee] border-[#e0d3c0] text-[#24140b]' : 'bg-[#1c110a] border-[#3f271a] text-white'
                       }`}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] mb-1 font-medium opacity-80">{t.holderPhone}</label>
+                    <label className="block text-[11px] mb-1 font-semibold opacity-85">{t.holderPhone}</label>
                     <input
                       type="tel"
                       required
                       value={guestPhone}
                       onChange={(e) => setGuestPhone(e.target.value)}
                       placeholder="+507 6200-1234"
-                      className={`w-full border rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:border-[#b58548] ${
-                        isLight ? 'bg-[#faf8f5] border-[#ded7ca]' : 'bg-[#120f0d] border-[#332920] text-white'
+                      className={`w-full border rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:border-[#c85a17] ${
+                        isLight ? 'bg-[#faf6ee] border-[#e0d3c0] text-[#24140b]' : 'bg-[#1c110a] border-[#3f271a] text-white'
                       }`}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] mb-1 font-medium opacity-80">{t.holderEmail}</label>
+                    <label className="block text-[11px] mb-1 font-semibold opacity-85">{t.holderEmail}</label>
                     <input
                       type="email"
+                      required
                       value={guestEmail}
                       onChange={(e) => setGuestEmail(e.target.value)}
-                      placeholder="sofia@email.com"
-                      className={`w-full border rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:border-[#b58548] ${
-                        isLight ? 'bg-[#faf8f5] border-[#ded7ca]' : 'bg-[#120f0d] border-[#332920] text-white'
+                      placeholder="sofia@example.com"
+                      className={`w-full border rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:border-[#c85a17] ${
+                        isLight ? 'bg-[#faf6ee] border-[#e0d3c0] text-[#24140b]' : 'bg-[#1c110a] border-[#3f271a] text-white'
                       }`}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] mb-1 font-medium opacity-80">{t.holderSpecialReq}</label>
+                    <label className="block text-[11px] mb-1 font-semibold opacity-85">{t.holderSpecialReq}</label>
                     <textarea
                       rows={2}
                       value={specialRequests}
                       onChange={(e) => setSpecialRequests(e.target.value)}
                       placeholder={t.holderSpecialReqPlaceholder}
-                      className={`w-full border rounded-xl px-3.5 py-2 text-xs focus:outline-none focus:border-[#b58548] resize-none ${
-                        isLight ? 'bg-[#faf8f5] border-[#ded7ca]' : 'bg-[#120f0d] border-[#332920] text-white'
+                      className={`w-full border rounded-xl px-3.5 py-2 text-xs focus:outline-none focus:border-[#c85a17] ${
+                        isLight ? 'bg-[#faf6ee] border-[#e0d3c0] text-[#24140b]' : 'bg-[#1c110a] border-[#3f271a] text-white'
                       }`}
                     />
                   </div>
                 </div>
-
-                {/* Instant Recap */}
-                <div className={`p-3.5 rounded-xl border space-y-1.5 text-xs ${
-                  isLight ? 'bg-[#faf8f5] border-[#e2dacf]' : 'bg-[#120f0d] border-[#2b2118]'
-                }`}>
-                  <div className="flex justify-between opacity-80">
-                    <span>{t.instantRecapSpace}</span>
-                    <strong className="capitalize">{selectedArea}</strong>
-                  </div>
-                  <div className="flex justify-between opacity-80">
-                    <span>{t.instantRecapTime}</span>
-                    <strong className="text-[#b58548] font-mono">{selectedDate} @ {selectedTime}</strong>
-                  </div>
-                  <div className="flex justify-between opacity-80">
-                    <span>{t.instantRecapParty}</span>
-                    <strong>{partySize} {partySize > 1 ? (lang === 'en' ? 'guests' : 'personas') : (lang === 'en' ? 'guest' : 'persona')}</strong>
-                  </div>
-                </div>
               </div>
 
-              {/* Submit CTA */}
+              {/* Confirm Table CTA in Burnt Orange */}
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 bg-[#b58548] hover:bg-[#9c6e33] disabled:opacity-60 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
+                className="w-full py-3.5 bg-[#c85a17] hover:bg-[#b54d0f] disabled:opacity-50 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all"
               >
-                {isSubmitting ? (
-                  <>
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    <span>{lang === 'en' ? 'Checking table availability...' : 'Verificando disponibilidad de mesa...'}</span>
-                  </>
-                ) : (
-                  <>
-                    <Calendar className="w-4 h-4" />
-                    <span>{t.confirmTableBooking}</span>
-                  </>
-                )}
+                {isSubmitting ? (lang === 'en' ? 'Confirming Table...' : 'Confirmando Mesa...') : t.confirmTableBooking}
               </button>
-            </motion.div>
+            </div>
 
           </form>
         )}
 
       </div>
-    </motion.section>
+    </section>
   );
 };

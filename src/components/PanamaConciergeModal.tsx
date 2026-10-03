@@ -114,7 +114,7 @@ export const PanamaConciergeModal: React.FC<PanamaConciergeModalProps> = ({
         {/* Header */}
         <div className="p-4 sm:p-5 border-b border-[#33271d] bg-gradient-to-r from-[#211914] via-[#2a1f18] to-[#1c1511] flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#b58548] to-[#6d431c] flex items-center justify-center text-white shadow-lg">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#c85a17] to-[#6d431c] flex items-center justify-center text-white shadow-lg">
               <Sparkles className="w-5 h-5 text-[#fbf6ee]" />
             </div>
             <div>
@@ -122,13 +122,13 @@ export const PanamaConciergeModal: React.FC<PanamaConciergeModalProps> = ({
                 <h3 className="font-serif font-bold text-base sm:text-lg text-[#fbf9f5]">
                   {lang === 'en' ? 'Panama Coffee Concierge' : 'Barista Concierge Cabrera'}
                 </h3>
-                <span className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#3d2c1f] text-[#d49e5d] border border-[#5a402c]">
+                <span className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#3d2c1f] text-[#d96523] border border-[#5a402c]">
                   <Globe className="w-2.5 h-2.5" />
                   <span>Google Search Grounded</span>
                 </span>
               </div>
               <div className="flex items-center gap-2 text-xs text-[#b8a999] mt-0.5">
-                <Clock className="w-3.5 h-3.5 text-[#d49e5d]" />
+                <Clock className="w-3.5 h-3.5 text-[#d96523]" />
                 <span className="font-medium text-[#e4d6c5]">{panamaTime.panamaTimeString}</span>
                 <span>·</span>
                 <span className="text-emerald-400 font-semibold">{panamaTime.isOpen ? panamaTime.statusBadgeEs : 'Cerrado'}</span>
@@ -148,10 +148,10 @@ export const PanamaConciergeModal: React.FC<PanamaConciergeModalProps> = ({
         {/* Live Panama Context Banner */}
         <div className="bg-[#1e1712] px-4 py-2 text-[11px] border-b border-[#33271d] flex flex-wrap items-center justify-between gap-2 text-[#b0a191]">
           <div className="flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5 text-[#d49e5d]" />
+            <MapPin className="w-3.5 h-3.5 text-[#d96523]" />
             <span>Plaza Paseo Costa Verde, La Chorrera, Panamá Oeste</span>
           </div>
-          <div className="text-[#d49e5d] font-mono text-[10px]">
+          <div className="text-[#d96523] font-mono text-[10px]">
             {panamaTime.nextEventDescriptionEs}
           </div>
         </div>
@@ -168,7 +168,7 @@ export const PanamaConciergeModal: React.FC<PanamaConciergeModalProps> = ({
               <div
                 className={`max-w-[88%] rounded-2xl p-4 text-sm leading-relaxed ${
                   m.sender === 'user'
-                    ? 'bg-[#b58548] text-white rounded-tr-none shadow-md font-medium'
+                    ? 'bg-[#c85a17] text-white rounded-tr-none shadow-md font-medium'
                     : 'bg-[#221b15] border border-[#3c2f23] text-[#f2ede4] rounded-tl-none shadow-sm'
                 }`}
               >
@@ -177,7 +177,7 @@ export const PanamaConciergeModal: React.FC<PanamaConciergeModalProps> = ({
                 {/* Sources Citation List if grounded */}
                 {m.sources && m.sources.length > 0 && (
                   <div className="mt-3 pt-2.5 border-t border-[#3c2f23] space-y-1">
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#d49e5d] block">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#d96523] block">
                       {lang === 'en' ? 'Grounded Sources & Location Data:' : 'Fuentes y Ubicación Verificada:'}
                     </span>
                     <div className="flex flex-wrap gap-1.5 pt-1">
@@ -187,7 +187,7 @@ export const PanamaConciergeModal: React.FC<PanamaConciergeModalProps> = ({
                           href={src.uri}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded bg-[#18130f] hover:bg-[#33261b] text-[#cbbba8] hover:text-[#d49e5d] border border-[#3c2e22] transition-colors"
+                          className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded bg-[#18130f] hover:bg-[#33261b] text-[#cbbba8] hover:text-[#d96523] border border-[#3c2e22] transition-colors"
                         >
                           <ExternalLink className="w-3 h-3" />
                           <span className="truncate max-w-[200px]">{src.title}</span>
@@ -204,7 +204,7 @@ export const PanamaConciergeModal: React.FC<PanamaConciergeModalProps> = ({
           ))}
 
           {loading && (
-            <div className="flex items-center gap-2 text-xs text-[#d49e5d] py-2 px-3 rounded-lg bg-[#221b15] w-fit border border-[#3c2f23]">
+            <div className="flex items-center gap-2 text-xs text-[#d96523] py-2 px-3 rounded-lg bg-[#221b15] w-fit border border-[#3c2f23]">
               <Sparkles className="w-3.5 h-3.5 animate-spin" />
               <span>{lang === 'en' ? 'Consulting Google Search & Panama Roastery Data...' : 'Consultando Búsqueda de Google y Datos de Panamá...'}</span>
             </div>
@@ -221,7 +221,7 @@ export const PanamaConciergeModal: React.FC<PanamaConciergeModalProps> = ({
               className="text-[11px] px-3 py-1.5 rounded-lg bg-[#251d16] hover:bg-[#372b20] text-[#c7b9a7] hover:text-white border border-[#3b2e22] whitespace-nowrap transition-colors flex items-center gap-1"
             >
               <span>{q}</span>
-              <ChevronRight className="w-3 h-3 text-[#b58548]" />
+              <ChevronRight className="w-3 h-3 text-[#c85a17]" />
             </button>
           ))}
         </div>
@@ -243,12 +243,12 @@ export const PanamaConciergeModal: React.FC<PanamaConciergeModalProps> = ({
                 ? "Ask about hours, Boquete lots, Costa Verde directions..."
                 : "Pregunta sobre horarios en Panamá, cafés de Boquete, cómo llegar..."
             }
-            className="flex-1 bg-[#140f0c] border border-[#443527] focus:border-[#b58548] text-[#f7f5f0] text-sm rounded-xl px-4 py-3 outline-none transition-colors placeholder:text-[#6a5e52]"
+            className="flex-1 bg-[#140f0c] border border-[#443527] focus:border-[#c85a17] text-[#f7f5f0] text-sm rounded-xl px-4 py-3 outline-none transition-colors placeholder:text-[#6a5e52]"
           />
           <button
             type="submit"
             disabled={!input.trim() || loading}
-            className="px-5 py-3 rounded-xl bg-[#b58548] hover:bg-[#9c6e33] disabled:opacity-50 text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg"
+            className="px-5 py-3 rounded-xl bg-[#c85a17] hover:bg-[#b54d0f] disabled:opacity-50 text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg"
           >
             <span>{lang === 'en' ? 'Send' : 'Enviar'}</span>
             <Send className="w-3.5 h-3.5" />

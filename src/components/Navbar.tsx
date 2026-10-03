@@ -41,10 +41,17 @@ export const Navbar: React.FC<NavbarProps> = ({
   const t = TRANSLATIONS[lang];
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 30);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -76,36 +83,36 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Top micro announcement bar with live Panama Country Time */}
       <div className={`border-b text-xs py-1.5 px-4 hidden md:block transition-colors ${
         isLight
-          ? 'bg-[#f4efe7] border-[#e2dbce] text-[#786b5e]'
-          : 'bg-[#0b0a09] border-[#292420] text-[#c4b9aa]'
+          ? 'bg-[#f4ede2] border-[#e2d5c3] text-[#5c4536]'
+          : 'bg-[#150c07] border-[#2c170d] text-[#cfc1b4]'
       }`}>
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
             {/* Live Panama Status */}
             <span className="flex items-center gap-2">
-              <span className={`inline-block w-2.5 h-2.5 rounded-full ${panamaTime.isOpen ? 'bg-emerald-500 animate-pulse shadow-[0_0_8px_#10b981]' : 'bg-amber-500'}`} />
-              <strong className={isLight ? 'text-[#181513]' : 'text-[#f7f5f0]'}>
+              <span className={`inline-block w-2.5 h-2.5 rounded-full ${panamaTime.isOpen ? 'bg-emerald-500 animate-pulse' : 'bg-[#c85a17]'}`} />
+              <strong className={isLight ? 'text-[#24140b]' : 'text-[#fcf9f4]'}>
                 {panamaTime.isOpen ? (lang === 'en' ? 'Open in Panama' : 'Abierto en Panamá') : (lang === 'en' ? 'Closed in Panama' : 'Cerrado en Panamá')}
               </strong>
-              <span className="flex items-center gap-1 font-mono text-[11px] text-[#b58548] font-bold px-1.5 py-0.5 rounded bg-[#b58548]/10">
-                <Clock className="w-3 h-3" />
+              <span className="flex items-center gap-1 font-mono text-[11px] text-[#c85a17] font-bold px-1.5 py-0.5 rounded bg-[#c85a17]/10">
+                <Clock className="w-3 h-3 text-[#c85a17]" />
                 {panamaTime.panamaTimeString} (UTC-5)
               </span>
-              <span className={isLight ? 'text-[#948777]' : 'text-[#8e8477]'}>
+              <span className={isLight ? 'text-[#7d6756]' : 'text-[#a39080]'}>
                 · {lang === 'en' ? panamaTime.nextEventDescriptionEn : panamaTime.nextEventDescriptionEs}
               </span>
             </span>
 
-            <span className={isLight ? 'text-[#d6cdbf]' : 'text-[#473e35]'}>|</span>
+            <span className={isLight ? 'text-[#d6c8b4]' : 'text-[#422b1d]'}>|</span>
 
             {/* Researched Costa Verde Address */}
             <a
               href={RESTAURANT_INFO.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-center gap-1 hover:text-[#b58548] transition-colors truncate max-w-sm ${isLight ? 'text-[#6e6255]' : 'text-[#a69b8d]'}`}
+              className={`flex items-center gap-1 hover:text-[#c85a17] transition-colors truncate max-w-sm ${isLight ? 'text-[#5c4536]' : 'text-[#cfc1b4]'}`}
             >
-              <MapPin className="w-3.5 h-3.5 text-[#b58548] shrink-0" />
+              <MapPin className="w-3.5 h-3.5 text-[#c85a17] shrink-0" />
               <span className="truncate">Plaza Paseo Costa Verde, Blvd. Costa Verde, Panamá</span>
             </a>
           </div>
@@ -115,37 +122,37 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               type="button"
               onClick={() => setIsConciergeOpen(true)}
-              className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#b58548] hover:text-[#d49e5d] transition-colors"
+              className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#c85a17] hover:text-[#db6824] transition-colors"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>{lang === 'en' ? 'AI Barista Concierge (Google Search)' : 'Concierge IA (Búsqueda en Vivo)'}</span>
             </button>
 
-            <span className={isLight ? 'text-[#d6cdbf]' : 'text-[#473e35]'}>|</span>
+            <span className={isLight ? 'text-[#d6c8b4]' : 'text-[#422b1d]'}>|</span>
 
             <a
               href={RESTAURANT_INFO.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 hover:text-[#b58548] transition-colors"
+              className="flex items-center gap-1 hover:text-[#c85a17] transition-colors"
             >
-              <Phone className="w-3 h-3 text-[#b58548]" />
+              <Phone className="w-3 h-3 text-[#c85a17]" />
               <span>+507 6603-9178</span>
             </a>
           </div>
         </div>
       </div>
 
-      {/* Main Sticky Navbar */}
+      {/* Main Sticky Navbar in Chocolate, Cream & Burnt Orange */}
       <header
-        className={`sticky top-0 z-40 transition-all duration-300 ${
+        className={`sticky top-0 z-40 transition-colors duration-200 ${
           isLight
             ? isScrolled
-              ? 'bg-[#ffffff]/95 backdrop-blur-md shadow-md border-b border-[#e5dfd3] py-2.5'
-              : 'bg-[#fcfbf9] border-b border-[#ece6dc] py-3.5'
+              ? 'bg-[#ffffff]/98 shadow-sm border-b border-[#e2d5c3] py-2.5'
+              : 'bg-[#faf6ee] border-b border-[#e6dac9] py-3.5'
             : isScrolled
-              ? 'bg-[#12100e]/95 backdrop-blur-md shadow-2xl border-b border-[#2c2621] py-2.5'
-              : 'bg-[#141210] border-b border-[#241f1a] py-3.5'
+              ? 'bg-[#1c110a]/98 shadow-md border-b border-[#382215] py-2.5'
+              : 'bg-[#1c110a] border-b border-[#311e13] py-3.5'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -170,17 +177,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`text-xs font-semibold uppercase tracking-wider transition-colors relative py-1 ${
+                  className={`text-xs font-bold uppercase tracking-wider transition-colors relative py-1 ${
                     isActive
-                      ? 'text-[#b58548] font-bold'
+                      ? 'text-[#c85a17] font-extrabold'
                       : isLight
-                        ? 'text-[#5c5247] hover:text-[#181513]'
-                        : 'text-[#dcd6ca] hover:text-[#f7f5f0]'
+                        ? 'text-[#4a3528] hover:text-[#c85a17]'
+                        : 'text-[#cfc1b4] hover:text-white'
                   }`}
                 >
                   {link.name}
                   {isActive && (
-                    <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#b58548] rounded-full" />
+                    <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#c85a17] rounded-full" />
                   )}
                 </Link>
               );
@@ -188,20 +195,20 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Right Action Controls */}
-          <div className="flex items-center gap-2.5 sm:gap-3.5">
+          <div className="flex items-center gap-2 sm:gap-3">
             {/* Language Switcher */}
             <div className={`flex items-center rounded-lg p-0.5 border text-xs font-bold ${
               isLight
-                ? 'bg-[#f0eae0] border-[#ddd4c4]'
-                : 'bg-[#1e1a17] border-[#38312a]'
+                ? 'bg-[#f4ede2] border-[#ded0bd]'
+                : 'bg-[#281810] border-[#3f271a]'
             }`}>
               <button
                 type="button"
                 onClick={() => setLang('es')}
                 className={`px-2 py-1 rounded transition-all ${
                   lang === 'es'
-                    ? 'bg-[#b58548] text-white shadow-sm'
-                    : isLight ? 'text-[#6c5f52] hover:text-black' : 'text-[#a19586] hover:text-white'
+                    ? 'bg-[#c85a17] text-white shadow-sm'
+                    : isLight ? 'text-[#6e5849] hover:text-black' : 'text-[#b09e90] hover:text-white'
                 }`}
                 aria-label="Español"
               >
@@ -212,8 +219,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => setLang('en')}
                 className={`px-2 py-1 rounded transition-all ${
                   lang === 'en'
-                    ? 'bg-[#b58548] text-white shadow-sm'
-                    : isLight ? 'text-[#6c5f52] hover:text-black' : 'text-[#a19586] hover:text-white'
+                    ? 'bg-[#c85a17] text-white shadow-sm'
+                    : isLight ? 'text-[#6e5849] hover:text-black' : 'text-[#b09e90] hover:text-white'
                 }`}
                 aria-label="English"
               >
@@ -227,10 +234,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => setTheme(isLight ? 'dark' : 'luxury-clean')}
               className={`p-2 rounded-lg border transition-all ${
                 isLight
-                  ? 'bg-[#f4efe7] border-[#ddd4c4] text-[#615446] hover:bg-[#eae2d4]'
-                  : 'bg-[#1e1a17] border-[#38312a] text-[#ffd699] hover:bg-[#2a241f]'
+                  ? 'bg-white border-[#e0d3c0] text-[#4a3528] hover:bg-[#f5eee3]'
+                  : 'bg-[#281810] border-[#3f271a] text-[#ffbf80] hover:bg-[#352015]'
               }`}
-              title={isLight ? 'Modo Oscuro Roastery' : 'Modo Claro Luxury'}
+              title={isLight ? 'Modo Chocolate Dark' : 'Modo Cream & Chocolate'}
               aria-label="Cambiar tema visual"
             >
               {isLight ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
@@ -240,23 +247,23 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               type="button"
               onClick={() => setIsConciergeOpen(true)}
-              className="p-2 rounded-lg border border-[#b58548]/40 bg-[#b58548]/15 hover:bg-[#b58548]/25 text-[#b58548] transition-all flex items-center gap-1.5 text-xs font-semibold"
+              className="p-2 rounded-lg border border-[#c85a17]/40 bg-[#c85a17]/10 hover:bg-[#c85a17]/20 text-[#c85a17] transition-all flex items-center gap-1.5 text-xs font-bold"
               title={lang === 'en' ? 'Ask AI Concierge (Google Search Grounded)' : 'Consultar Barista IA (Con búsqueda de Google)'}
             >
-              <Sparkles className="w-4 h-4 text-[#d49e5d]" />
+              <Sparkles className="w-4 h-4 text-[#c85a17]" />
               <span className="hidden xl:inline">{lang === 'en' ? 'Ask Barista' : 'Concierge IA'}</span>
             </button>
 
-            {/* Cart Drawer Trigger */}
+            {/* Cart Drawer Trigger with Burnt Orange Accent */}
             <button
               type="button"
               onClick={onOpenCart}
-              className="relative inline-flex items-center gap-2 px-3.5 py-2 bg-[#b58548] hover:bg-[#9e7036] text-white font-bold text-xs uppercase tracking-wider rounded-lg shadow-md hover:shadow-lg transition-all transform active:scale-95"
+              className="relative inline-flex items-center gap-2 px-3.5 py-2 bg-[#c85a17] hover:bg-[#b54d0f] text-white font-bold text-xs uppercase tracking-wider rounded-lg shadow-md hover:shadow-lg transition-all"
             >
               <ShoppingBag className="w-4 h-4" />
               <span className="hidden sm:inline">{t.myOrder}</span>
               {cartCount > 0 && (
-                <span className="flex items-center justify-center bg-white text-[#181513] font-mono font-bold text-xs h-5 min-w-5 px-1.5 rounded-full">
+                <span className="flex items-center justify-center bg-white text-[#24140b] font-mono font-bold text-xs h-5 min-w-5 px-1.5 rounded-full">
                   {cartCount}
                 </span>
               )}
@@ -267,12 +274,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </button>
 
-            {/* Mobile menu toggle */}
+            {/* Mobile / iPad menu toggle */}
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`lg:hidden p-2 rounded-lg ${
-                isLight ? 'text-[#38312a] hover:bg-[#eae3d6]' : 'text-[#dcd6ca] hover:bg-[#221c17]'
+              className={`lg:hidden p-2 rounded-lg border ${
+                isLight ? 'bg-white border-[#e0d3c0] text-[#24140b]' : 'bg-[#281810] border-[#3f271a] text-[#fcf9f4]'
               }`}
               aria-label="Toggle menu"
             >
@@ -281,19 +288,23 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer */}
+        {/* Mobile & iPad Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className={`lg:hidden border-b px-4 pt-3 pb-6 mt-2 space-y-4 shadow-xl ${
-            isLight ? 'bg-[#f9f7f3] border-[#e2dacf]' : 'bg-[#161310] border-[#2c2621]'
+          <div className={`lg:hidden border-b px-4 pt-3 pb-6 space-y-4 shadow-2xl ${
+            isLight ? 'bg-[#faf6ee] border-[#e2d5c3]' : 'bg-[#1c110a] border-[#382215]'
           }`}>
-            <div className="flex items-center justify-between p-2 rounded-lg border border-black/10">
-              <span className="text-xs font-medium">{t.serviceMode}</span>
-              <div className="flex gap-1">
+            <div className={`flex items-center justify-between p-3 rounded-xl border ${
+              isLight ? 'bg-white border-[#e0d3c0]' : 'bg-[#281810] border-[#3f271a]'
+            }`}>
+              <span className="text-xs font-bold text-[#c85a17]">{t.serviceMode}</span>
+              <div className="flex gap-1.5">
                 <button
                   type="button"
                   onClick={() => setOrderType('dine_in')}
-                  className={`px-3 py-1 text-xs font-semibold rounded-md ${
-                    orderType === 'dine_in' ? 'bg-[#b58548] text-white' : ''
+                  className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${
+                    orderType === 'dine_in'
+                      ? 'bg-[#c85a17] text-white shadow-sm'
+                      : isLight ? 'text-[#5c4536]' : 'text-[#cfc1b4]'
                   }`}
                 >
                   {t.dineIn}
@@ -301,8 +312,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <button
                   type="button"
                   onClick={() => setOrderType('takeout')}
-                  className={`px-3 py-1 text-xs font-semibold rounded-md ${
-                    orderType === 'takeout' ? 'bg-[#b58548] text-white' : ''
+                  className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${
+                    orderType === 'takeout'
+                      ? 'bg-[#c85a17] text-white shadow-sm'
+                      : isLight ? 'text-[#5c4536]' : 'text-[#cfc1b4]'
                   }`}
                 >
                   {t.takeout}
@@ -310,7 +323,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
             </div>
 
-            <div className="flex flex-col space-y-2">
+            <div className="flex flex-col space-y-1.5">
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.path;
                 return (
@@ -318,27 +331,43 @@ export const Navbar: React.FC<NavbarProps> = ({
                     key={link.name}
                     to={link.path}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center justify-between py-2.5 px-2 text-sm font-semibold rounded-lg transition-colors ${
+                    className={`flex items-center justify-between py-3 px-3 text-sm font-bold rounded-xl transition-colors ${
                       isActive
-                        ? 'bg-[#b58548]/15 text-[#b58548]'
-                        : isLight ? 'text-[#3e342a] hover:bg-[#eae3d6]' : 'text-[#e5decb] hover:bg-[#261f18]'
+                        ? 'bg-[#c85a17] text-white shadow-sm'
+                        : isLight
+                          ? 'text-[#24140b] hover:bg-[#f2e7d7]'
+                          : 'text-[#fcf9f4] hover:bg-[#281810]'
                     }`}
                   >
                     <span>{link.name}</span>
-                    <ChevronRight className="w-4 h-4 text-[#8e8477]" />
+                    <ChevronRight className={`w-4 h-4 ${isActive ? 'text-white' : 'text-[#c85a17]'}`} />
                   </Link>
                 );
               })}
             </div>
 
-            <Link
-              to="/visit"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center gap-2 py-2.5 bg-[#b58548] text-white rounded-lg text-sm font-semibold shadow-md"
-            >
-              <Calendar className="w-4 h-4" />
-              <span>{t.reserveTable}</span>
-            </Link>
+            <div className="pt-2 flex flex-col gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setIsConciergeOpen(true);
+                }}
+                className="w-full flex items-center justify-center gap-2 py-3 border border-[#c85a17] text-[#c85a17] rounded-xl text-sm font-bold bg-[#c85a17]/10"
+              >
+                <Sparkles className="w-4 h-4" />
+                <span>{lang === 'en' ? 'AI Barista Concierge (Google Search)' : 'Concierge IA (Búsqueda en Vivo)'}</span>
+              </button>
+
+              <Link
+                to="/visit"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full flex items-center justify-center gap-2 py-3 bg-[#c85a17] hover:bg-[#b54d0f] text-white rounded-xl text-sm font-bold shadow-md"
+              >
+                <Calendar className="w-4 h-4" />
+                <span>{t.reserveTable}</span>
+              </Link>
+            </div>
           </div>
         )}
       </header>

@@ -1,8 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { motion } from 'motion/react';
 import { MenuItem, MenuCategory, OrderType, CartItem } from '../types';
 import { MENU_ITEMS } from '../data/menuData';
-import { Search, Plus, Coffee, Clock } from 'lucide-react';
+import { Search, Plus, Coffee, Clock, Sparkles } from 'lucide-react';
 import { ItemCustomizerModal } from './ItemCustomizerModal';
 import { Language, TRANSLATIONS } from '../i18n/translations';
 
@@ -95,64 +94,57 @@ export const OrderingSystem: React.FC<OrderingSystemProps> = ({
   };
 
   return (
-    <motion.section
+    <section
       id="menu"
-      initial={{ opacity: 0.05 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true, amount: 0.04 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className={`py-16 relative border-t transition-colors ${
-        isLight ? 'bg-[#f7f5f0] border-[#e8e2d6] text-[#181513]' : 'bg-[#161310] border-[#25201b] text-[#f7f5f0]'
+      className={`py-12 sm:py-16 relative border-t transition-colors opacity-100 ${
+        isLight
+          ? 'bg-[#faf6ee] border-[#e4d8c7] text-[#24140b]'
+          : 'bg-[#1c110a] border-[#382215] text-[#fcf9f4]'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        {/* Section Header: Solid high contrast on both mobile & desktop */}
         <div className={`flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b ${
-          isLight ? 'border-[#e4ded2]' : 'border-[#29221b]'
+          isLight ? 'border-[#e4d8c7]' : 'border-[#382215]'
         }`}>
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="text-left"
-          >
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#b58548] mb-2">
+          <div className="text-left space-y-2">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#c85a17] font-mono">
+              <Sparkles className="w-3.5 h-3.5" />
               <span>{t.officialMenuKicker}</span>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl font-black tracking-tight">
+            <h2 className={`font-serif text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight ${
+              isLight ? 'text-[#24140b]' : 'text-[#fcf9f4]'
+            }`}>
               {t.menuTitle}
             </h2>
-            <p className={`text-sm mt-2 max-w-xl ${isLight ? 'text-[#6e6356]' : 'text-[#b0a496]'}`}>
+            <p className={`text-sm sm:text-base max-w-xl font-normal leading-relaxed ${
+              isLight ? 'text-[#5c4536]' : 'text-[#d6c7b8]'
+            }`}>
               {t.menuSubtitle}
             </p>
-          </motion.div>
+          </div>
 
           {/* Interactive Mode Bar: Dine-in vs Takeout Details */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.15 }}
+          <div
             className={`p-3 rounded-xl border flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shadow-sm ${
-              isLight ? 'bg-white border-[#ded7ca]' : 'bg-[#1e1914] border-[#382f25]'
+              isLight ? 'bg-white border-[#e0d3c0]' : 'bg-[#281911] border-[#442c1e]'
             }`}
           >
             <div className="flex items-center gap-2">
-              <span className={`text-xs font-medium ${isLight ? 'text-[#706456]' : 'text-[#a6998a]'}`}>
-                {t.serviceMode}
+              <span className={`text-xs font-semibold ${isLight ? 'text-[#5c4536]' : 'text-[#cfc1b4]'}`}>
+                {t.serviceMode}:
               </span>
               <div className={`flex p-1 rounded-lg border ${
-                isLight ? 'bg-[#f4efe7] border-[#ddd4c4]' : 'bg-[#120f0d] border-[#30271e]'
+                isLight ? 'bg-[#f4eee3] border-[#ddd0bc]' : 'bg-[#1a0f08] border-[#3b2519]'
               }`}>
                 <button
                   type="button"
                   onClick={() => setOrderType('dine_in')}
-                  className={`px-3 py-1 text-xs font-semibold rounded transition-all ${
+                  className={`px-3 py-1.5 text-xs font-bold rounded transition-all ${
                     orderType === 'dine_in'
-                      ? 'bg-[#b58548] text-white shadow-sm'
-                      : isLight ? 'text-[#706456]' : 'text-[#9c8f80]'
+                      ? 'bg-[#c85a17] text-white shadow-sm'
+                      : isLight ? 'text-[#5c4536] hover:text-[#24140b]' : 'text-[#b8a798] hover:text-white'
                   }`}
                 >
                   {t.dineIn}
@@ -160,10 +152,10 @@ export const OrderingSystem: React.FC<OrderingSystemProps> = ({
                 <button
                   type="button"
                   onClick={() => setOrderType('takeout')}
-                  className={`px-3 py-1 text-xs font-semibold rounded transition-all ${
+                  className={`px-3 py-1.5 text-xs font-bold rounded transition-all ${
                     orderType === 'takeout'
-                      ? 'bg-[#b58548] text-white shadow-sm'
-                      : isLight ? 'text-[#706456]' : 'text-[#9c8f80]'
+                      ? 'bg-[#c85a17] text-white shadow-sm'
+                      : isLight ? 'text-[#5c4536] hover:text-[#24140b]' : 'text-[#b8a798] hover:text-white'
                   }`}
                 >
                   {t.takeout}
@@ -173,57 +165,55 @@ export const OrderingSystem: React.FC<OrderingSystemProps> = ({
 
             {orderType === 'dine_in' ? (
               <div className={`flex items-center gap-2 border-t sm:border-t-0 sm:border-l pt-2 sm:pt-0 sm:pl-3 ${
-                isLight ? 'border-[#e0d8cb]' : 'border-[#382f25]'
+                isLight ? 'border-[#e0d3c0]' : 'border-[#442c1e]'
               }`}>
-                <span className="text-xs whitespace-nowrap">{t.tableNumLabel}</span>
+                <span className={`text-xs font-medium whitespace-nowrap ${isLight ? 'text-[#5c4536]' : 'text-[#cfc1b4]'}`}>
+                  {t.tableNumLabel}
+                </span>
                 <input
                   type="text"
                   placeholder="4"
                   value={tableNumber}
                   onChange={(e) => setTableNumber(e.target.value)}
-                  className={`w-16 border rounded px-2 py-1 text-xs text-center font-mono focus:outline-none focus:border-[#b58548] ${
-                    isLight ? 'bg-[#f4efe7] border-[#ded5c5]' : 'bg-[#120f0d] border-[#3b3024] text-white'
+                  className={`w-16 border rounded px-2 py-1 text-xs text-center font-mono font-bold focus:outline-none focus:border-[#c85a17] ${
+                    isLight
+                      ? 'bg-[#faf6ee] border-[#ddd0bc] text-[#24140b]'
+                      : 'bg-[#1c110a] border-[#442c1e] text-white'
                   }`}
                 />
               </div>
             ) : (
-              <div className={`text-xs font-mono border-t sm:border-t-0 sm:border-l pt-2 sm:pt-0 sm:pl-3 font-semibold text-[#b58548] ${
-                isLight ? 'border-[#e0d8cb]' : 'border-[#382f25]'
-              }`}>
+              <div className="text-xs font-mono border-t sm:border-t-0 sm:border-l pt-2 sm:pt-0 sm:pl-3 font-bold text-[#c85a17]">
                 {t.readyInEstimate}
               </div>
             )}
-          </motion.div>
+          </div>
         </div>
 
         {/* Filter Toolbar & Search Bar */}
         <div className="py-6 space-y-4">
           <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
             
-            {/* Category Tabs sequentially revealed */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-2 lg:pb-0 scrollbar-none">
-              {categories.map((cat, idx) => {
+            {/* Category Tabs: Burnt Orange Active Pill & Chocolate Cream Inactive */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 scrollbar-none">
+              {categories.map((cat) => {
                 const isSelected = selectedCategory === cat.id;
                 return (
-                  <motion.button
+                  <button
                     key={cat.id}
                     type="button"
-                    initial={{ opacity: 0, y: 8 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: idx * 0.04, ease: [0.16, 1, 0.3, 1] }}
                     onClick={() => setSelectedCategory(cat.id)}
-                    className={`px-3.5 py-2 text-xs font-semibold rounded-lg whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 ${
+                    className={`px-4 py-2.5 text-xs font-bold rounded-xl whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 ${
                       isSelected
-                        ? 'bg-[#b58548] text-white shadow-md font-bold'
+                        ? 'bg-[#c85a17] text-white shadow-md font-extrabold'
                         : isLight
-                          ? 'bg-white text-[#5c5144] hover:text-black border border-[#ddd6c9]'
-                          : 'bg-[#1e1914] text-[#a69a8b] hover:text-[#f7f5f0] border border-[#332920]'
+                          ? 'bg-white text-[#4a3426] hover:text-[#24140b] border border-[#e2d5c3] hover:border-[#c85a17]'
+                          : 'bg-[#26170f] text-[#cfc1b4] hover:text-white border border-[#3e271a] hover:border-[#c85a17]'
                     }`}
                   >
                     <span>{cat.icon}</span>
                     <span>{cat.label}</span>
-                  </motion.button>
+                  </button>
                 );
               })}
             </div>
@@ -231,24 +221,24 @@ export const OrderingSystem: React.FC<OrderingSystemProps> = ({
             {/* Search Input */}
             <div className="relative min-w-[260px]">
               <Search className={`w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 ${
-                isLight ? 'text-[#9c8e7e]' : 'text-[#7d6f60]'
+                isLight ? 'text-[#856e5f]' : 'text-[#9c897a]'
               }`} />
               <input
                 type="text"
                 placeholder={t.searchPlaceholder}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className={`w-full border rounded-lg pl-9 pr-4 py-2 text-xs focus:outline-none focus:border-[#b58548] ${
+                className={`w-full border rounded-xl pl-9 pr-4 py-2.5 text-xs font-medium focus:outline-none focus:border-[#c85a17] transition-colors ${
                   isLight
-                    ? 'bg-white border-[#ded7ca] text-[#181513] placeholder-[#9c8e7e]'
-                    : 'bg-[#1c1713] border-[#362b21] text-[#f7f5f0] placeholder-[#7d6f60]'
+                    ? 'bg-white border-[#e0d3c0] text-[#24140b] placeholder-[#856e5f]'
+                    : 'bg-[#24160e] border-[#3f271a] text-[#fcf9f4] placeholder-[#9c897a]'
                 }`}
               />
               {searchQuery && (
                 <button
                   type="button"
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs opacity-60 hover:opacity-100"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold opacity-60 hover:opacity-100"
                 >
                   ✕
                 </button>
@@ -257,58 +247,35 @@ export const OrderingSystem: React.FC<OrderingSystemProps> = ({
           </div>
 
           {/* Quick Filter Segmented Buttons */}
-          <div className="flex items-center gap-2 pt-1 text-xs">
-            <span className={`font-medium mr-1 ${isLight ? 'text-[#877869]' : 'text-[#877a6b]'}`}>
-              {t.filterBy}
+          <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+            <span className={`font-semibold mr-1 ${isLight ? 'text-[#6e5849]' : 'text-[#b09e90]'}`}>
+              {t.filterBy}:
             </span>
-            <button
-              type="button"
-              onClick={() => setActiveFilter('all')}
-              className={`px-2.5 py-1 rounded text-xs transition-colors ${
-                activeFilter === 'all'
-                  ? 'bg-[#b58548] text-white font-semibold'
-                  : isLight ? 'text-[#6e6153] hover:text-black' : 'text-[#a19383] hover:text-[#f7f5f0]'
-              }`}
-            >
-              {t.filterAll}
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveFilter('special')}
-              className={`px-2.5 py-1 rounded text-xs transition-colors ${
-                activeFilter === 'special'
-                  ? 'bg-[#b58548] text-white font-semibold'
-                  : isLight ? 'text-[#6e6153] hover:text-black' : 'text-[#a19383] hover:text-[#f7f5f0]'
-              }`}
-            >
-              {t.filterSpecial}
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveFilter('popular')}
-              className={`px-2.5 py-1 rounded text-xs transition-colors ${
-                activeFilter === 'popular'
-                  ? 'bg-[#b58548] text-white font-semibold'
-                  : isLight ? 'text-[#6e6153] hover:text-black' : 'text-[#a19383] hover:text-[#f7f5f0]'
-              }`}
-            >
-              {t.filterPopular}
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveFilter('vegetarian')}
-              className={`px-2.5 py-1 rounded text-xs transition-colors ${
-                activeFilter === 'vegetarian'
-                  ? 'bg-[#b58548] text-white font-semibold'
-                  : isLight ? 'text-[#6e6153] hover:text-black' : 'text-[#a19383] hover:text-[#f7f5f0]'
-              }`}
-            >
-              {t.filterVeggie}
-            </button>
+            {[
+              { id: 'all', label: t.filterAll },
+              { id: 'special', label: t.filterSpecial },
+              { id: 'popular', label: t.filterPopular },
+              { id: 'vegetarian', label: t.filterVeggie },
+            ].map((f) => (
+              <button
+                key={f.id}
+                type="button"
+                onClick={() => setActiveFilter(f.id as any)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all border ${
+                  activeFilter === f.id
+                    ? 'bg-[#c85a17] border-[#c85a17] text-white shadow-sm'
+                    : isLight
+                      ? 'bg-white border-[#e0d3c0] text-[#5c4536] hover:text-[#24140b]'
+                      : 'bg-[#26170f] border-[#3e271a] text-[#cfc1b4] hover:text-white'
+                }`}
+              >
+                {f.label}
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* Menu Items Grid by Subcategories */}
+        {/* Menu Items Grid by Subcategories (120Hz Fast Render without heavy observers) */}
         <div className="space-y-12 pt-4 text-left">
           {subcategories.map((subcatName) => {
             const subItems = filteredItems.filter((i) => {
@@ -318,87 +285,74 @@ export const OrderingSystem: React.FC<OrderingSystemProps> = ({
             if (subItems.length === 0) return null;
 
             return (
-              <div key={subcatName} className="space-y-4">
-                {/* Horizontal Divider Line drawn smoothly horizontally */}
+              <div key={subcatName} className="space-y-5">
+                {/* Horizontal Section Line in Chocolate & Burnt Orange */}
                 <div className="flex items-center gap-3">
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold tracking-tight">
+                  <h3 className={`font-serif text-xl sm:text-2xl font-bold tracking-tight ${
+                    isLight ? 'text-[#24140b]' : 'text-[#fcf9f4]'
+                  }`}>
                     {subcatName}
                   </h3>
-                  <motion.div
-                    initial={{ scaleX: 0 }}
-                    whileInView={{ scaleX: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    style={{ transformOrigin: 'left' }}
-                    className={`h-[1px] flex-1 ${
-                      isLight ? 'bg-gradient-to-r from-[#ddd4c5] to-transparent' : 'bg-gradient-to-r from-[#382d23] to-transparent'
-                    }`}
-                  />
-                  <span className={`text-xs font-mono ${isLight ? 'text-[#877869]' : 'text-[#807364]'}`}>
+                  <div className={`h-[1px] flex-1 ${
+                    isLight ? 'bg-gradient-to-r from-[#e4d8c7] to-transparent' : 'bg-gradient-to-r from-[#442c1e] to-transparent'
+                  }`} />
+                  <span className={`text-xs font-mono font-semibold ${isLight ? 'text-[#856e5f]' : 'text-[#9c897a]'}`}>
                     {subItems.length} {subItems.length === 1 ? t.optionCountSingular : t.optionsCount}
                   </span>
                 </div>
 
-                {/* Staggered Cards */}
+                {/* Grid of Cards: 60-120fps Native CSS Performance */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {subItems.map((item, itemIdx) => {
+                  {subItems.map((item) => {
                     const itemName = lang === 'en' && item.nameEn ? item.nameEn : item.name;
                     const itemDesc = lang === 'en' && item.descriptionEn ? item.descriptionEn : item.description;
 
                     return (
-                      <motion.div
+                      <div
                         key={item.id}
-                        initial={{ opacity: 0, y: 16 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.55, delay: (itemIdx % 6) * 0.06, ease: [0.16, 1, 0.3, 1] }}
                         onClick={() => setCustomizingItem(item)}
-                        className={`group editorial-image-container rounded-xl overflow-hidden shadow-sm hover:shadow-xl border transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between ${
+                        className={`group rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border transition-all duration-200 cursor-pointer flex flex-col justify-between ${
                           isLight
-                            ? 'bg-white border-[#e6dfd3] hover:border-[#b58548]'
-                            : 'bg-[#1a1613] border-[#2e251d] hover:border-[#524132]'
+                            ? 'bg-white border-[#e6dcce] hover:border-[#c85a17]'
+                            : 'bg-[#26170f] border-[#3f271a] hover:border-[#c85a17]'
                         }`}
                       >
                         <div>
-                          {/* Image banner with soft vertical mask reveal */}
-                          <motion.div
-                            initial={{ clipPath: 'inset(6% 0 6% 0)', opacity: 0.9 }}
-                            whileInView={{ clipPath: 'inset(0% 0 0% 0)', opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                            className="relative h-44 w-full overflow-hidden bg-black/10"
-                          >
+                          {/* Image banner with instant hardware-accelerated presentation */}
+                          <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-black/10">
                             <img
                               src={item.image}
                               alt={itemName}
-                              className="w-full h-full object-cover object-center"
+                              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
                               loading="lazy"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent opacity-85" />
                             
-                            {/* Badges */}
-                            <div className="absolute top-2.5 left-3 flex items-center gap-1.5 text-[11px] font-medium text-white bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded">
-                              {item.isHouseSpecial && <span className="text-[#ffd280]">★ {lang === 'en' ? 'Specialty' : 'Especialidad'}</span>}
+                            {/* Badges in Burnt Orange / Gold */}
+                            <div className="absolute top-2.5 left-3 flex flex-wrap items-center gap-1.5 text-[11px] font-bold text-white bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-md">
+                              {item.isHouseSpecial && <span className="text-[#f59e0b]">★ {lang === 'en' ? 'Specialty' : 'Especialidad'}</span>}
                               {item.isHouseSpecial && item.isPopular && <span className="text-white/40">·</span>}
                               {item.isPopular && <span>{lang === 'en' ? 'Favorite' : 'Favorito'}</span>}
                               {item.dietary?.includes('vegetarian') && <span className="text-emerald-400">🌱 Veggie</span>}
                             </div>
 
-                            {/* Price Tag */}
-                            <div className="absolute bottom-2.5 right-3 bg-black/80 backdrop-blur-md px-2.5 py-1 rounded border border-white/20 font-mono font-bold text-sm text-[#ffd280]">
+                            {/* Price Tag with Touch of Burnt Orange */}
+                            <div className="absolute bottom-2.5 right-3 bg-[#1c110af5] px-3 py-1 rounded-lg border border-[#c85a17]/50 font-mono font-bold text-sm text-[#f68b3d] shadow-md">
                               ${item.price.toFixed(2)}
                               {item.priceLarge && <span className="text-xs text-white/80"> / ${item.priceLarge.toFixed(2)}</span>}
                             </div>
-                          </motion.div>
+                          </div>
 
-                          {/* Text info */}
-                          <div className="p-4 space-y-2">
-                            <h4 className="font-serif text-lg font-bold group-hover:text-[#b58548] transition-colors leading-snug">
+                          {/* Text info: Solid Deep Chocolate in Cream Mode */}
+                          <div className="p-4 sm:p-5 space-y-2">
+                            <h4 className={`font-serif text-lg font-bold leading-snug transition-colors group-hover:text-[#c85a17] ${
+                              isLight ? 'text-[#24140b]' : 'text-[#fcf9f4]'
+                            }`}>
                               {itemName}
                             </h4>
                             
                             <p className={`text-xs leading-relaxed line-clamp-2 ${
-                              isLight ? 'text-[#6e6153]' : 'text-[#a89b8d]'
+                              isLight ? 'text-[#5c4536]' : 'text-[#cfc1b4]'
                             }`}>
                               {itemDesc}
                             </p>
@@ -407,23 +361,19 @@ export const OrderingSystem: React.FC<OrderingSystemProps> = ({
 
                         {/* Card Bottom Action */}
                         <div className={`p-4 pt-0 flex items-center justify-between border-t mt-2 ${
-                          isLight ? 'border-[#f0eae0]' : 'border-[#261f18]'
+                          isLight ? 'border-[#f2ece2]' : 'border-[#331f14]'
                         }`}>
-                          <span className={`text-[11px] font-mono flex items-center gap-1 ${
-                            isLight ? 'text-[#8c7e6f]' : 'text-[#786b5e]'
+                          <span className={`text-[11px] font-mono font-semibold flex items-center gap-1 ${
+                            isLight ? 'text-[#856e5f]' : 'text-[#a39080]'
                           }`}>
-                            <Clock className="w-3 h-3" />
+                            <Clock className="w-3.5 h-3.5 text-[#c85a17]" />
                             ~{item.prepTimeMinutes} {t.prepTimeShort}
                           </span>
 
                           <button
                             type="button"
                             onClick={(e) => handleQuickAdd(item, e)}
-                            className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all ${
-                              isLight
-                                ? 'bg-[#f4efe7] group-hover:bg-[#b58548] text-[#2c241d] group-hover:text-white border-[#ded5c5] group-hover:border-[#b58548]'
-                                : 'bg-[#251e18] group-hover:bg-[#b58548] text-[#e8ded1] group-hover:text-white border-[#3e3227] group-hover:border-[#b58548]'
-                            }`}
+                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold rounded-lg bg-[#c85a17] hover:bg-[#b34d0f] text-white shadow-sm transition-all"
                           >
                             <Plus className="w-3.5 h-3.5" />
                             <span>
@@ -433,7 +383,7 @@ export const OrderingSystem: React.FC<OrderingSystemProps> = ({
                             </span>
                           </button>
                         </div>
-                      </motion.div>
+                      </div>
                     );
                   })}
                 </div>
@@ -443,13 +393,13 @@ export const OrderingSystem: React.FC<OrderingSystemProps> = ({
 
           {filteredItems.length === 0 && (
             <div className={`text-center py-16 rounded-2xl border space-y-3 ${
-              isLight ? 'bg-white border-[#e0d7c8]' : 'bg-[#1a1613] border-[#2f251c]'
+              isLight ? 'bg-white border-[#e4d8c7]' : 'bg-[#26170f] border-[#3f271a]'
             }`}>
-              <Coffee className="w-12 h-12 text-[#998b7a] mx-auto" />
-              <h3 className="font-serif text-lg font-bold">
+              <Coffee className="w-12 h-12 text-[#c85a17] mx-auto" />
+              <h3 className={`font-serif text-lg font-bold ${isLight ? 'text-[#24140b]' : 'text-[#fcf9f4]'}`}>
                 {t.noResultsTitle}
               </h3>
-              <p className="text-xs text-[#8f8070] max-w-sm mx-auto">
+              <p className={`text-xs max-w-sm mx-auto ${isLight ? 'text-[#6e5849]' : 'text-[#b09e90]'}`}>
                 {t.noResultsDesc}
               </p>
               <button
@@ -459,7 +409,7 @@ export const OrderingSystem: React.FC<OrderingSystemProps> = ({
                   setSearchQuery('');
                   setActiveFilter('all');
                 }}
-                className="mt-2 px-4 py-2 bg-[#b58548] text-white text-xs font-semibold rounded-lg shadow-sm"
+                className="mt-2 px-5 py-2.5 bg-[#c85a17] hover:bg-[#b34d0f] text-white text-xs font-bold rounded-xl shadow-md transition-all"
               >
                 {t.resetFilters}
               </button>
@@ -479,6 +429,6 @@ export const OrderingSystem: React.FC<OrderingSystemProps> = ({
           theme={theme}
         />
       )}
-    </motion.section>
+    </section>
   );
 };

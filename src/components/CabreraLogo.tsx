@@ -13,14 +13,14 @@ export const CabreraLogo: React.FC<CabreraLogoProps> = ({
   variant = 'gold',
   showSubtitle = true,
 }) => {
-  // Theme color palettes based on "logo 3.jpeg" official artwork
+  // Theme color palettes in Chocolate Brown, Cream, and Burnt Orange
   const palettes = {
     'gold': {
-      mark: '#b58548',
+      mark: '#c85a17',
       cupFill: '#ffffff',
-      title: '#b58548',
-      subtitle: '#8f6837',
-      rule: '#d4a872',
+      title: '#c85a17',
+      subtitle: '#a34812',
+      rule: '#d96523',
     },
     'monochrome': {
       mark: 'currentColor',
@@ -30,18 +30,18 @@ export const CabreraLogo: React.FC<CabreraLogoProps> = ({
       rule: 'currentColor',
     },
     'luxury-dark': {
-      mark: '#161412',
+      mark: '#24140b',
       cupFill: '#ffffff',
-      title: '#161412',
-      subtitle: '#3d3732',
-      rule: '#8f7b6b',
+      title: '#24140b',
+      subtitle: '#5c4536',
+      rule: '#c85a17',
     },
     'luxury-light': {
-      mark: '#f7f4ee',
-      cupFill: '#161412',
-      title: '#f7f4ee',
-      subtitle: '#d4ccbf',
-      rule: '#baa993',
+      mark: '#fcf9f4',
+      cupFill: '#24140b',
+      title: '#fcf9f4',
+      subtitle: '#cfc1b4',
+      rule: '#d96523',
     },
   };
 

@@ -72,7 +72,7 @@ export const ItemCustomizerModal: React.FC<ItemCustomizerModalProps> = ({
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
       <div 
         className={`relative w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden border text-left ${
-          isLight ? 'bg-white border-[#ded7ca] text-[#181513]' : 'bg-[#161310] border-[#3b3026] text-[#f7f5f0]'
+          isLight ? 'bg-white border-[#ded7ca] text-[#24140b]' : 'bg-[#161310] border-[#3b3026] text-[#f7f5f0]'
         }`}
         onClick={(e) => e.stopPropagation()}
       >
@@ -113,7 +113,7 @@ export const ItemCustomizerModal: React.FC<ItemCustomizerModalProps> = ({
               <h2 className="font-serif text-2xl font-bold">
                 {itemName}
               </h2>
-              <span className="font-mono text-xl font-bold text-[#b58548] shrink-0">
+              <span className="font-mono text-xl font-bold text-[#c85a17] shrink-0">
                 ${basePrice.toFixed(2)}
               </span>
             </div>
@@ -139,12 +139,12 @@ export const ItemCustomizerModal: React.FC<ItemCustomizerModalProps> = ({
                       onClick={() => setSelectedSize(size)}
                       className={`flex items-center justify-between p-3 rounded-xl border text-sm font-medium transition-all ${
                         isSelected
-                          ? 'border-[#b58548] bg-[#b58548]/10 font-bold'
-                          : isLight ? 'border-[#ded7ca] bg-[#fcfbf9] text-[#706456]' : 'border-[#332a22] bg-[#1a1613] text-[#a89d91]'
+                          ? 'border-[#c85a17] bg-[#c85a17]/10 font-bold'
+                          : isLight ? 'border-[#ded7ca] bg-[#faf6ee] text-[#706456]' : 'border-[#332a22] bg-[#1a1613] text-[#a89d91]'
                       }`}
                     >
                       <span>{size}</span>
-                      <span className="font-mono text-xs text-[#b58548] font-bold">${sizePrice.toFixed(2)}</span>
+                      <span className="font-mono text-xs text-[#c85a17] font-bold">${sizePrice.toFixed(2)}</span>
                     </button>
                   );
                 })}
@@ -164,8 +164,8 @@ export const ItemCustomizerModal: React.FC<ItemCustomizerModalProps> = ({
                   onClick={() => setSelectedTemp('Hot')}
                   className={`p-2.5 rounded-xl border text-xs font-semibold transition-all ${
                     selectedTemp === 'Hot'
-                      ? 'border-[#b58548] bg-[#b58548]/10'
-                      : isLight ? 'border-[#ded7ca] bg-[#fcfbf9] text-[#706456]' : 'border-[#332a22] bg-[#1a1613] text-[#a89d91]'
+                      ? 'border-[#c85a17] bg-[#c85a17]/10'
+                      : isLight ? 'border-[#ded7ca] bg-[#faf6ee] text-[#706456]' : 'border-[#332a22] bg-[#1a1613] text-[#a89d91]'
                   }`}
                 >
                   {t.tempHot}
@@ -175,8 +175,8 @@ export const ItemCustomizerModal: React.FC<ItemCustomizerModalProps> = ({
                   onClick={() => setSelectedTemp('Iced')}
                   className={`p-2.5 rounded-xl border text-xs font-semibold transition-all ${
                     selectedTemp === 'Iced'
-                      ? 'border-[#b58548] bg-[#b58548]/10'
-                      : isLight ? 'border-[#ded7ca] bg-[#fcfbf9] text-[#706456]' : 'border-[#332a22] bg-[#1a1613] text-[#a89d91]'
+                      ? 'border-[#c85a17] bg-[#c85a17]/10'
+                      : isLight ? 'border-[#ded7ca] bg-[#faf6ee] text-[#706456]' : 'border-[#332a22] bg-[#1a1613] text-[#a89d91]'
                   }`}
                 >
                   {t.tempIced}
@@ -207,17 +207,17 @@ export const ItemCustomizerModal: React.FC<ItemCustomizerModalProps> = ({
                       onClick={() => setSelectedMilk(milk.name)}
                       className={`w-full flex items-center justify-between p-2.5 rounded-lg border text-xs font-medium transition-all ${
                         isSelected
-                          ? 'border-[#b58548] bg-[#b58548]/10'
+                          ? 'border-[#c85a17] bg-[#c85a17]/10'
                           : isLight ? 'border-[#e4ded3] bg-[#faf8f5] text-[#695d51]' : 'border-[#2d241d] bg-[#1a1613] text-[#a89d91]'
                       }`}
                     >
                       <div className="flex items-center gap-2">
-                        <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${isSelected ? 'border-[#b58548] bg-[#b58548]' : 'border-gray-400'}`}>
+                        <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${isSelected ? 'border-[#c85a17] bg-[#c85a17]' : 'border-gray-400'}`}>
                           {isSelected && <Check className="w-3 h-3 text-white" />}
                         </div>
                         <span>{milkLabel}</span>
                       </div>
-                      <span className="font-mono text-[11px] text-[#b58548] font-bold">
+                      <span className="font-mono text-[11px] text-[#c85a17] font-bold">
                         {milk.price > 0 ? `+$${milk.price.toFixed(2)}` : t.milkIncluded}
                       </span>
                     </button>
@@ -234,7 +234,7 @@ export const ItemCustomizerModal: React.FC<ItemCustomizerModalProps> = ({
                 <label className="text-xs uppercase font-bold tracking-wider">
                   {t.extraSyrup}
                 </label>
-                <span className="text-[11px] text-[#b58548] font-semibold">+$0.75</span>
+                <span className="text-[11px] text-[#c85a17] font-semibold">+$0.75</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {SYRUP_OPTIONS.map((syrup) => {
@@ -247,13 +247,13 @@ export const ItemCustomizerModal: React.FC<ItemCustomizerModalProps> = ({
                       onClick={() => setSelectedSyrup(syrup.name)}
                       className={`flex items-center justify-between p-2.5 rounded-lg border text-xs transition-all ${
                         isSelected
-                          ? 'border-[#b58548] bg-[#b58548]/10 font-bold'
+                          ? 'border-[#c85a17] bg-[#c85a17]/10 font-bold'
                           : isLight ? 'border-[#e4ded3] bg-[#faf8f5] text-[#695d51]' : 'border-[#2d241d] bg-[#1a1613] text-[#a89d91]'
                       }`}
                     >
                       <span className="truncate">{syrupLabel}</span>
                       {syrup.price > 0 && (
-                        <span className="font-mono text-[11px] text-[#b58548] ml-1 shrink-0">
+                        <span className="font-mono text-[11px] text-[#c85a17] ml-1 shrink-0">
                           +$0.75
                         </span>
                       )}
@@ -274,7 +274,7 @@ export const ItemCustomizerModal: React.FC<ItemCustomizerModalProps> = ({
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder={t.notesPlaceholder}
-              className={`w-full border rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:border-[#b58548] ${
+              className={`w-full border rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:border-[#c85a17] ${
                 isLight ? 'bg-[#faf8f5] border-[#ded7ca] text-black' : 'bg-[#1a1613] border-[#332920] text-white'
               }`}
             />
@@ -313,7 +313,7 @@ export const ItemCustomizerModal: React.FC<ItemCustomizerModalProps> = ({
           <button
             type="button"
             onClick={handleConfirm}
-            className="flex-1 py-3 px-5 bg-[#b58548] hover:bg-[#9c6e33] text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md transition-all flex items-center justify-between"
+            className="flex-1 py-3 px-5 bg-[#c85a17] hover:bg-[#b54d0f] text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md transition-all flex items-center justify-between"
           >
             <span>{t.addToOrder}</span>
             <span className="font-mono font-bold text-sm">

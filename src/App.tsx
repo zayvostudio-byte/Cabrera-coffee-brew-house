@@ -174,9 +174,9 @@ export default function App() {
   const isLight = theme === 'luxury-clean';
 
   return (
-    <div className={`min-h-screen flex flex-col transition-colors duration-300 ${
-      isLight ? 'bg-[#fcfbf9] text-[#181513]' : 'bg-[#12100e] text-[#f7f5f0]'
-    } selection:bg-[#b58548] selection:text-white`}>
+    <div className={`min-h-screen flex flex-col transition-colors duration-200 ${
+      isLight ? 'bg-[#faf6ee] text-[#24140b]' : 'bg-[#1c110a] text-[#fcf9f4]'
+    } selection:bg-[#c85a17] selection:text-white`}>
       
       {/* 
         ==================================================
@@ -220,7 +220,7 @@ export default function App() {
                   ? `${t.dineIn} (${t.tableNumLabel} ${activeOrder.tableNumber})`
                   : `${t.takeout} (${activeOrder.pickupTime})`}
               </span>
-              <span className="text-[#b58548] font-mono font-semibold">
+              <span className="text-[#c85a17] font-mono font-semibold">
                 · {t.inPreparation} ({activeOrder.items.length} {t.cartItemsLabel})
               </span>
             </div>
@@ -229,7 +229,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setIsCheckoutOpen(true)}
-                className="px-3 py-1 bg-[#b58548] text-white rounded font-semibold transition-colors hover:bg-[#9c6e33]"
+                className="px-3 py-1 bg-[#c85a17] text-white rounded font-semibold transition-colors hover:bg-[#b54d0f]"
               >
                 {t.viewReceipt}
               </button>

@@ -167,7 +167,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           particleCount: 80,
           spread: 70,
           origin: { y: 0.6 },
-          colors: ['#b58548', '#d4a872', '#ffffff', '#181513'],
+          colors: ['#c85a17', '#d4a872', '#ffffff', '#24140b'],
         });
       } catch (err) {}
     }, 2600);
@@ -218,16 +218,16 @@ Your order is being lovingly prepared.
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
       <div 
         className={`relative w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden border text-left ${
-          isLight ? 'bg-white border-[#ded7ca] text-[#181513]' : 'bg-[#161310] border-[#3d3227] text-[#f7f5f0]'
+          isLight ? 'bg-white border-[#ded7ca] text-[#24140b]' : 'bg-[#161310] border-[#3d3227] text-[#f7f5f0]'
         }`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className={`p-5 border-b flex items-center justify-between ${
-          isLight ? 'bg-[#fcfbf9] border-[#e8e2d6]' : 'bg-[#1a1612] border-[#2d241c]'
+          isLight ? 'bg-[#faf6ee] border-[#e8e2d6]' : 'bg-[#1a1612] border-[#2d241c]'
         }`}>
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#b58548]/15 flex items-center justify-center text-[#b58548] border border-[#b58548]/30">
+            <div className="w-9 h-9 rounded-xl bg-[#c85a17]/15 flex items-center justify-center text-[#c85a17] border border-[#c85a17]/30">
               <Lock className="w-4 h-4" />
             </div>
             <div>
@@ -256,7 +256,7 @@ Your order is being lovingly prepared.
               isLight ? 'bg-[#faf8f5] border-[#e2dacf]' : 'bg-[#1f1914] border-[#3e3226]'
             }`}>
               <CheckCircle2 className="w-12 h-12 text-emerald-500 mx-auto animate-bounce" />
-              <div className="text-xs uppercase tracking-widest text-[#b58548] font-mono font-bold">
+              <div className="text-xs uppercase tracking-widest text-[#c85a17] font-mono font-bold">
                 #{completedOrder.orderNumber}
               </div>
               <h2 className="font-serif text-2xl font-bold">
@@ -275,24 +275,24 @@ Your order is being lovingly prepared.
             }`}>
               <div className="flex items-center justify-between text-xs">
                 <span className="font-semibold">{t.orderTrackingStatus}</span>
-                <span className="font-mono text-[#b58548] font-bold flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-[#b58548] animate-ping" />
+                <span className="font-mono text-[#c85a17] font-bold flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-[#c85a17] animate-ping" />
                   {t.statusActivePrep}
                 </span>
               </div>
 
               <div className="grid grid-cols-3 gap-2 pt-2 text-center text-xs">
                 <div className={`p-2.5 rounded-lg border space-y-1 ${
-                  isLight ? 'bg-white border-[#b58548]/40' : 'bg-[#271f18] border-[#b58548]/50'
+                  isLight ? 'bg-white border-[#c85a17]/40' : 'bg-[#271f18] border-[#c85a17]/50'
                 }`}>
-                  <div className="font-bold text-[#b58548]">{t.stepReceived}</div>
+                  <div className="font-bold text-[#c85a17]">{t.stepReceived}</div>
                   <div className="text-[10px] opacity-75">{t.stepReceivedDesc}</div>
                 </div>
                 <div className={`p-2.5 rounded-lg border space-y-1 animate-pulse ${
-                  isLight ? 'bg-white border-[#b58548]' : 'bg-[#271f18] border-[#b58548]'
+                  isLight ? 'bg-white border-[#c85a17]' : 'bg-[#271f18] border-[#c85a17]'
                 }`}>
                   <div className="font-bold">{t.stepBrewing}</div>
-                  <div className="text-[10px] text-[#b58548] font-semibold">{t.stepBrewingDesc}</div>
+                  <div className="text-[10px] text-[#c85a17] font-semibold">{t.stepBrewingDesc}</div>
                 </div>
                 <div className={`p-2.5 rounded-lg border space-y-1 opacity-50 ${
                   isLight ? 'bg-[#f0eae0] border-[#ddd4c4]' : 'bg-[#181411] border-[#2b221a]'
@@ -320,7 +320,7 @@ Your order is being lovingly prepared.
                         {it.size && <span className="opacity-70 ml-1">({it.size})</span>}
                         {it.selectedMilk && <span className="block text-[11px] opacity-75">{it.selectedMilk}</span>}
                       </div>
-                      <span className="font-mono font-semibold text-[#b58548]">
+                      <span className="font-mono font-semibold text-[#c85a17]">
                         ${(it.unitPrice * it.quantity).toFixed(2)}
                       </span>
                     </div>
@@ -332,7 +332,7 @@ Your order is being lovingly prepared.
                 isLight ? 'border-[#eee7db]' : 'border-[#261f18]'
               }`}>
                 <span>{t.totalCharged}</span>
-                <span className="font-mono text-base text-[#b58548]">${completedOrder.total.toFixed(2)}</span>
+                <span className="font-mono text-base text-[#c85a17]">${completedOrder.total.toFixed(2)}</span>
               </div>
             </div>
 
@@ -347,14 +347,14 @@ Your order is being lovingly prepared.
                     : 'bg-[#241c16] hover:bg-[#32271f] border-[#433527]'
                 }`}
               >
-                <Download className="w-4 h-4 text-[#b58548]" />
+                <Download className="w-4 h-4 text-[#c85a17]" />
                 <span>{t.downloadReceipt}</span>
               </button>
 
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 py-3 px-4 bg-[#b58548] hover:bg-[#9c6e33] text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all"
+                className="flex-1 py-3 px-4 bg-[#c85a17] hover:bg-[#b54d0f] text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all"
               >
                 {t.closeAndContinue}
               </button>
@@ -384,7 +384,7 @@ Your order is being lovingly prepared.
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
                     placeholder="Roberto De Gracia"
-                    className={`w-full border rounded-xl px-3.5 py-2 text-xs focus:outline-none focus:border-[#b58548] ${
+                    className={`w-full border rounded-xl px-3.5 py-2 text-xs focus:outline-none focus:border-[#c85a17] ${
                       isLight ? 'bg-[#faf8f5] border-[#ded7ca]' : 'bg-[#1c1713] border-[#342a20] text-white'
                     }`}
                   />
@@ -397,7 +397,7 @@ Your order is being lovingly prepared.
                     value={customerPhone}
                     onChange={(e) => setCustomerPhone(e.target.value)}
                     placeholder="+507 6000-0000"
-                    className={`w-full border rounded-xl px-3.5 py-2 text-xs focus:outline-none focus:border-[#b58548] ${
+                    className={`w-full border rounded-xl px-3.5 py-2 text-xs focus:outline-none focus:border-[#c85a17] ${
                       isLight ? 'bg-[#faf8f5] border-[#ded7ca]' : 'bg-[#1c1713] border-[#342a20] text-white'
                     }`}
                   />
@@ -411,7 +411,7 @@ Your order is being lovingly prepared.
                   value={customerEmail}
                   onChange={(e) => setCustomerEmail(e.target.value)}
                   placeholder="roberto@email.com"
-                  className={`w-full border rounded-xl px-3.5 py-2 text-xs focus:outline-none focus:border-[#b58548] ${
+                  className={`w-full border rounded-xl px-3.5 py-2 text-xs focus:outline-none focus:border-[#c85a17] ${
                     isLight ? 'bg-[#faf8f5] border-[#ded7ca]' : 'bg-[#1c1713] border-[#342a20] text-white'
                   }`}
                 />
@@ -423,7 +423,7 @@ Your order is being lovingly prepared.
                   <select
                     value={pickupTime}
                     onChange={(e) => setPickupTime(e.target.value)}
-                    className={`w-full border rounded-xl px-3.5 py-2 text-xs focus:outline-none focus:border-[#b58548] ${
+                    className={`w-full border rounded-xl px-3.5 py-2 text-xs focus:outline-none focus:border-[#c85a17] ${
                       isLight ? 'bg-[#faf8f5] border-[#ded7ca]' : 'bg-[#1c1713] border-[#342a20] text-white'
                     }`}
                   >
@@ -457,11 +457,11 @@ Your order is being lovingly prepared.
                   onClick={() => setPaymentMethod('credit_card')}
                   className={`p-3 rounded-xl border text-xs font-semibold flex flex-col items-center justify-center gap-1.5 transition-all ${
                     paymentMethod === 'credit_card'
-                      ? 'border-[#b58548] bg-[#b58548]/10 font-bold'
+                      ? 'border-[#c85a17] bg-[#c85a17]/10 font-bold'
                       : isLight ? 'border-[#ded7ca] bg-[#faf8f5]' : 'border-[#30261e] bg-[#1a1613]'
                   }`}
                 >
-                  <CreditCard className="w-4 h-4 text-[#b58548]" />
+                  <CreditCard className="w-4 h-4 text-[#c85a17]" />
                   <span>{t.payCard}</span>
                 </button>
 
@@ -483,7 +483,7 @@ Your order is being lovingly prepared.
                   onClick={() => setPaymentMethod('apple_pay')}
                   className={`p-3 rounded-xl border text-xs font-semibold flex flex-col items-center justify-center gap-1.5 transition-all ${
                     paymentMethod === 'apple_pay'
-                      ? 'border-[#b58548] bg-[#b58548]/10 font-bold'
+                      ? 'border-[#c85a17] bg-[#c85a17]/10 font-bold'
                       : isLight ? 'border-[#ded7ca] bg-[#faf8f5]' : 'border-[#30261e] bg-[#1a1613]'
                   }`}
                 >
@@ -496,11 +496,11 @@ Your order is being lovingly prepared.
                   onClick={() => setPaymentMethod('cash_counter')}
                   className={`p-3 rounded-xl border text-xs font-semibold flex flex-col items-center justify-center gap-1.5 transition-all ${
                     paymentMethod === 'cash_counter'
-                      ? 'border-[#b58548] bg-[#b58548]/10 font-bold'
+                      ? 'border-[#c85a17] bg-[#c85a17]/10 font-bold'
                       : isLight ? 'border-[#ded7ca] bg-[#faf8f5]' : 'border-[#30261e] bg-[#1a1613]'
                   }`}
                 >
-                  <DollarSign className="w-4 h-4 text-[#b58548]" />
+                  <DollarSign className="w-4 h-4 text-[#c85a17]" />
                   <span>{t.payCash}</span>
                 </button>
               </div>
@@ -512,7 +512,7 @@ Your order is being lovingly prepared.
                 }`}>
                   <div className="flex items-center justify-between text-[11px] opacity-75">
                     <span>Visa, Mastercard, AMEX</span>
-                    <span className="font-mono text-[10px] bg-[#b58548]/20 px-2 py-0.5 rounded text-[#b58548] font-bold">256-bit SSL</span>
+                    <span className="font-mono text-[10px] bg-[#c85a17]/20 px-2 py-0.5 rounded text-[#c85a17] font-bold">256-bit SSL</span>
                   </div>
 
                   <div>
@@ -522,7 +522,7 @@ Your order is being lovingly prepared.
                       placeholder="Roberto De Gracia"
                       value={cardName}
                       onChange={(e) => setCardName(e.target.value)}
-                      className={`w-full border rounded-lg px-3 py-2 text-xs uppercase focus:outline-none focus:border-[#b58548] ${
+                      className={`w-full border rounded-lg px-3 py-2 text-xs uppercase focus:outline-none focus:border-[#c85a17] ${
                         isLight ? 'bg-white border-[#ded7ca]' : 'bg-[#13100e] border-[#33281f] text-white'
                       }`}
                     />
@@ -535,7 +535,7 @@ Your order is being lovingly prepared.
                       placeholder="4000 1234 5678 9010"
                       value={cardNumber}
                       onChange={(e) => handleCardNumberChange(e.target.value)}
-                      className={`w-full border rounded-lg px-3 py-2 text-xs font-mono tracking-wider focus:outline-none focus:border-[#b58548] ${
+                      className={`w-full border rounded-lg px-3 py-2 text-xs font-mono tracking-wider focus:outline-none focus:border-[#c85a17] ${
                         isLight ? 'bg-white border-[#ded7ca]' : 'bg-[#13100e] border-[#33281f] text-white'
                       }`}
                     />
@@ -549,7 +549,7 @@ Your order is being lovingly prepared.
                         placeholder="MM/AA"
                         value={cardExpiry}
                         onChange={(e) => handleExpiryChange(e.target.value)}
-                        className={`w-full border rounded-lg px-3 py-2 text-xs font-mono text-center focus:outline-none focus:border-[#b58548] ${
+                        className={`w-full border rounded-lg px-3 py-2 text-xs font-mono text-center focus:outline-none focus:border-[#c85a17] ${
                           isLight ? 'bg-white border-[#ded7ca]' : 'bg-[#13100e] border-[#33281f] text-white'
                         }`}
                       />
@@ -562,7 +562,7 @@ Your order is being lovingly prepared.
                         placeholder="123"
                         value={cardCvv}
                         onChange={(e) => setCardCvv(e.target.value.replace(/\D/g, ''))}
-                        className={`w-full border rounded-lg px-3 py-2 text-xs font-mono text-center focus:outline-none focus:border-[#b58548] ${
+                        className={`w-full border rounded-lg px-3 py-2 text-xs font-mono text-center focus:outline-none focus:border-[#c85a17] ${
                           isLight ? 'bg-white border-[#ded7ca]' : 'bg-[#13100e] border-[#33281f] text-white'
                         }`}
                       />
@@ -625,13 +625,13 @@ Your order is being lovingly prepared.
 
             {/* Total preview */}
             <div className={`p-4 rounded-xl border flex items-center justify-between ${
-              isLight ? 'bg-[#fcfbf9] border-[#ded7ca]' : 'bg-[#120f0d] border-[#2b221a]'
+              isLight ? 'bg-[#faf6ee] border-[#ded7ca]' : 'bg-[#120f0d] border-[#2b221a]'
             }`}>
               <div>
                 <span className="text-xs font-medium block">{t.totalDefinitive}</span>
                 <span className="text-[11px] opacity-70">{t.includesTaxTip}</span>
               </div>
-              <span className="font-mono text-xl font-bold text-[#b58548]">
+              <span className="font-mono text-xl font-bold text-[#c85a17]">
                 ${total.toFixed(2)}
               </span>
             </div>
@@ -640,7 +640,7 @@ Your order is being lovingly prepared.
             <button
               type="submit"
               disabled={isProcessing}
-              className="w-full py-4 bg-[#b58548] hover:bg-[#9c6e33] disabled:opacity-60 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
+              className="w-full py-4 bg-[#c85a17] hover:bg-[#b54d0f] disabled:opacity-60 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
             >
               {isProcessing ? (
                 <>

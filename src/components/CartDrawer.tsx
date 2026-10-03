@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CartItem, OrderType } from '../types';
-import { X, Trash2, ShoppingBag, ArrowRight, Utensils, Coffee } from 'lucide-react';
+import { X, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
 import { Language, TRANSLATIONS } from '../i18n/translations';
 
 interface CartDrawerProps {
@@ -52,148 +52,166 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   const total = subtotal + tax + calculatedTip;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden bg-black/60 backdrop-blur-sm flex justify-end">
+    <div className="fixed inset-0 z-50 overflow-hidden bg-black/70 backdrop-blur-sm flex justify-end">
       <div 
-        className={`w-full max-w-md h-full flex flex-col shadow-2xl border-l animate-in slide-in-from-right duration-300 text-left ${
-          isLight ? 'bg-white border-[#ded7ca] text-[#181513]' : 'bg-[#161310] border-[#362b21] text-[#f7f5f0]'
+        className={`w-full max-w-md h-full flex flex-col shadow-2xl border-l animate-in slide-in-from-right duration-200 text-left ${
+          isLight ? 'bg-[#faf6ee] border-[#e0d3c0] text-[#24140b]' : 'bg-[#1c110a] border-[#3f271a] text-[#fcf9f4]'
         }`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className={`p-5 border-b flex items-center justify-between ${
-          isLight ? 'bg-[#fcfbf9] border-[#e8e2d6]' : 'bg-[#191512] border-[#2b221a]'
+        <div className={`p-4 sm:p-5 border-b flex items-center justify-between ${
+          isLight ? 'border-[#e4d8c7] bg-white' : 'border-[#382215] bg-[#24150d]'
         }`}>
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-[#b58548]/15 flex items-center justify-center text-[#b58548] border border-[#b58548]/30">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-xl bg-[#c85a17]/15 flex items-center justify-center text-[#c85a17]">
               <ShoppingBag className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="font-serif text-lg font-bold">
-                {t.cartTitle}
+              <h3 className="font-serif font-bold text-base">
+                {t.myOrder}
               </h3>
-              <span className={`text-[11px] font-mono ${isLight ? 'text-[#877869]' : 'text-[#9c8e7f]'}`}>
+              <span className="text-[11px] font-mono text-[#c85a17] font-bold">
                 {cartItems.length} {cartItems.length === 1 ? t.cartItemSingular : t.cartItemsLabel}
               </span>
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={onClose}
-            className="p-2 opacity-60 hover:opacity-100 rounded-lg transition-opacity"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-2">
+            {cartItems.length > 0 && (
+              <button
+                type="button"
+                onClick={onClearCart}
+                className="text-xs text-[#a39080] hover:text-rose-500 transition-colors p-1"
+                aria-label="Vaciar carrito"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={onClose}
+              className={`p-1.5 rounded-lg border transition-colors ${
+                isLight ? 'border-[#e0d3c0] hover:bg-[#faf6ee]' : 'border-[#3f271a] hover:bg-[#281810]'
+              }`}
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
-        {/* Order Mode Switcher */}
-        <div className={`p-4 border-b space-y-3 ${
-          isLight ? 'bg-[#f7f5f0] border-[#e8e2d6]' : 'bg-[#1b1713] border-[#292019]'
+        {/* Order Mode Pill in Cart */}
+        <div className={`p-3 border-b flex items-center justify-between gap-3 text-xs ${
+          isLight ? 'bg-white/80 border-[#e4d8c7]' : 'bg-[#22150d] border-[#382215]'
         }`}>
-          <div className="flex items-center justify-between">
-            <span className={`text-xs font-medium ${isLight ? 'text-[#706456]' : 'text-[#a6998a]'}`}>
-              {t.serviceMode}
-            </span>
-            <div className={`flex p-1 rounded-lg border ${
-              isLight ? 'bg-white border-[#ded7ca]' : 'bg-[#120f0d] border-[#30261e]'
-            }`}>
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs font-bold text-[#c85a17]">{t.serviceMode}:</span>
+            <div className="flex p-0.5 rounded-lg border border-[#e0d3c0] dark:border-[#3f271a]">
               <button
                 type="button"
                 onClick={() => setOrderType('dine_in')}
-                className={`flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded transition-all ${
+                className={`px-2.5 py-1 text-xs font-bold rounded-md transition-all ${
                   orderType === 'dine_in'
-                    ? 'bg-[#b58548] text-white shadow-sm'
-                    : isLight ? 'text-[#706456]' : 'text-[#9c8f80]'
+                    ? 'bg-[#c85a17] text-white shadow-sm'
+                    : isLight ? 'text-[#5c4536]' : 'text-[#cfc1b4]'
                 }`}
               >
-                <Utensils className="w-3 h-3" />
-                <span>{t.dineIn}</span>
+                {t.dineIn}
               </button>
               <button
                 type="button"
                 onClick={() => setOrderType('takeout')}
-                className={`flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded transition-all ${
+                className={`px-2.5 py-1 text-xs font-bold rounded-md transition-all ${
                   orderType === 'takeout'
-                    ? 'bg-[#b58548] text-white shadow-sm'
-                    : isLight ? 'text-[#706456]' : 'text-[#9c8f80]'
+                    ? 'bg-[#c85a17] text-white shadow-sm'
+                    : isLight ? 'text-[#5c4536]' : 'text-[#cfc1b4]'
                 }`}
               >
-                <Coffee className="w-3 h-3" />
-                <span>{t.takeout}</span>
+                {t.takeout}
               </button>
             </div>
           </div>
 
           {orderType === 'dine_in' && (
-            <div className="flex items-center justify-between pt-1">
-              <label className="text-xs">{t.tableNumLabel}</label>
+            <div className="flex items-center gap-1 font-mono text-xs">
+              <span className="font-semibold text-[#5c4536] dark:text-[#cfc1b4]">{t.tableNumLabel}:</span>
               <input
                 type="text"
+                placeholder="4"
                 value={tableNumber}
                 onChange={(e) => setTableNumber(e.target.value)}
-                placeholder="4"
-                className={`w-24 border rounded px-3 py-1 text-xs text-center font-mono focus:outline-none focus:border-[#b58548] ${
-                  isLight ? 'bg-white border-[#ded7ca]' : 'bg-[#120f0d] border-[#362b21] text-white'
+                className={`w-12 border rounded px-1.5 py-0.5 text-center font-bold font-mono text-xs focus:border-[#c85a17] ${
+                  isLight ? 'bg-white border-[#e0d3c0] text-[#24140b]' : 'bg-[#1c110a] border-[#3f271a] text-white'
                 }`}
               />
             </div>
           )}
         </div>
 
-        {/* Items List */}
+        {/* Item List */}
         <div className="flex-1 overflow-y-auto p-4 space-y-3">
           {cartItems.length === 0 ? (
-            <div className="h-full flex flex-col items-center justify-center text-center p-6 space-y-3">
-              <ShoppingBag className="w-12 h-12 opacity-30 stroke-1" />
-              <h4 className="font-serif text-lg">{t.cartEmptyTitle}</h4>
-              <p className={`text-xs max-w-xs ${isLight ? 'text-[#706456]' : 'text-[#8e8071]'}`}>
+            <div className="text-center py-16 space-y-3">
+              <ShoppingBag className="w-12 h-12 text-[#c85a17]/50 mx-auto" />
+              <h4 className="font-serif font-bold text-lg">
+                {t.cartEmptyTitle}
+              </h4>
+              <p className="text-xs text-[#856e5f] max-w-xs mx-auto">
                 {t.cartEmptyDesc}
               </p>
-              <button
-                type="button"
-                onClick={onClose}
-                className="mt-2 px-5 py-2 bg-[#b58548] text-white text-xs font-semibold rounded-lg shadow-sm"
-              >
-                {t.viewMenuBtn}
-              </button>
             </div>
           ) : (
             cartItems.map((cartItem) => {
               const itemName = lang === 'en' && cartItem.item.nameEn ? cartItem.item.nameEn : cartItem.item.name;
+
               return (
                 <div
                   key={cartItem.cartItemId}
-                  className={`p-3 border rounded-xl flex items-start gap-3 relative ${
-                    isLight ? 'bg-[#faf8f5] border-[#e6dfd3]' : 'bg-[#1c1814] border-[#2e241c]'
+                  className={`p-3.5 rounded-xl border flex gap-3 relative transition-all ${
+                    isLight ? 'bg-white border-[#e0d3c0]' : 'bg-[#26170f] border-[#3f271a]'
                   }`}
                 >
-                  <img
-                    src={cartItem.item.image}
-                    alt={itemName}
-                    className="w-16 h-16 rounded-lg object-cover shrink-0 bg-black/10"
-                  />
+                  <div className="w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-black/10">
+                    <img
+                      src={cartItem.item.image}
+                      alt={itemName}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
 
-                  <div className="flex-1 min-w-0 pr-6">
-                    <h4 className="text-xs font-bold truncate">
+                  <div className="flex-1 min-w-0 pr-6 space-y-1">
+                    <h5 className="font-serif font-bold text-sm truncate">
                       {itemName}
-                    </h4>
-                    
-                    <div className={`text-[11px] space-y-0.5 mt-0.5 ${isLight ? 'text-[#7a6d5f]' : 'text-[#9e9081]'}`}>
-                      {cartItem.size && <div>{t.beverageSize}: {cartItem.size}</div>}
-                      {cartItem.selectedTemperature && <div>Temp: {cartItem.selectedTemperature === 'Hot' ? 'Hot' : 'Iced'}</div>}
-                      {cartItem.selectedMilk && <div>{t.milkType}: {cartItem.selectedMilk}</div>}
-                      {cartItem.selectedSyrup && <div>{t.extraSyrup}: {cartItem.selectedSyrup}</div>}
-                      {cartItem.notes && <div className="italic">"{cartItem.notes}"</div>}
+                    </h5>
+
+                    {/* Customizations tags */}
+                    <div className="text-[11px] text-[#856e5f] dark:text-[#a39080] space-y-0.5">
+                      {cartItem.size && (
+                        <div>• Tamaño: {cartItem.size}</div>
+                      )}
+                      {cartItem.selectedMilk && (
+                        <div>• Leche: {cartItem.selectedMilk}</div>
+                      )}
+                      {cartItem.selectedSyrup && (
+                        <div>• Sirope: {cartItem.selectedSyrup}</div>
+                      )}
+                      {cartItem.selectedTemperature && (
+                        <div>• {cartItem.selectedTemperature}</div>
+                      )}
+                      {cartItem.notes && (
+                        <div className="italic text-[10px]">"{cartItem.notes}"</div>
+                      )}
                     </div>
 
-                    <div className="flex items-center justify-between mt-2">
-                      <div className={`flex items-center border rounded-md ${
-                        isLight ? 'bg-white border-[#ded7ca]' : 'bg-[#13100d] border-[#382d23]'
+                    <div className="flex items-center justify-between pt-1">
+                      {/* Quantity stepper */}
+                      <div className={`flex items-center border rounded-lg text-xs ${
+                        isLight ? 'border-[#e0d3c0] bg-[#faf6ee]' : 'border-[#3f271a] bg-[#1c110a]'
                       }`}>
                         <button
                           type="button"
-                          onClick={() => onUpdateQuantity(cartItem.cartItemId, cartItem.quantity - 1)}
-                          className="px-2 py-0.5 text-xs opacity-60 hover:opacity-100"
+                          onClick={() => onUpdateQuantity(cartItem.cartItemId, Math.max(1, cartItem.quantity - 1))}
+                          className="px-2 py-0.5 text-xs opacity-70 hover:opacity-100 font-bold"
                         >
                           -
                         </button>
@@ -203,13 +221,13 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         <button
                           type="button"
                           onClick={() => onUpdateQuantity(cartItem.cartItemId, cartItem.quantity + 1)}
-                          className="px-2 py-0.5 text-xs opacity-60 hover:opacity-100"
+                          className="px-2 py-0.5 text-xs opacity-70 hover:opacity-100 font-bold"
                         >
                           +
                         </button>
                       </div>
 
-                      <span className="font-mono font-bold text-xs text-[#b58548]">
+                      <span className="font-mono font-bold text-xs text-[#c85a17]">
                         ${(cartItem.unitPrice * cartItem.quantity).toFixed(2)}
                       </span>
                     </div>
@@ -231,12 +249,12 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
         {/* Footer Financial Breakdown */}
         {cartItems.length > 0 && (
           <div className={`p-4 border-t space-y-4 ${
-            isLight ? 'bg-[#fcfbf9] border-[#e8e2d6]' : 'bg-[#14100e] border-[#2d231a]'
+            isLight ? 'bg-white border-[#e0d3c0]' : 'bg-[#1c110a] border-[#382215]'
           }`}>
             <div className="space-y-1.5">
               <div className="flex items-center justify-between text-xs">
-                <span className={isLight ? 'text-[#706456]' : 'text-[#a6998a]'}>{t.teamTip}</span>
-                <span className="font-mono text-[#b58548] font-bold">
+                <span className={isLight ? 'text-[#5c4536]' : 'text-[#cfc1b4]'}>{t.teamTip}</span>
+                <span className="font-mono text-[#c85a17] font-bold">
                   ${calculatedTip.toFixed(2)}
                 </span>
               </div>
@@ -249,10 +267,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                       setTipPercentage(pct);
                       setCustomTip('');
                     }}
-                    className={`py-1 text-[11px] font-semibold rounded border transition-all ${
+                    className={`py-1 text-[11px] font-bold rounded-lg border transition-all ${
                       customTip === '' && tipPercentage === pct
-                        ? 'border-[#b58548] bg-[#b58548] text-white shadow-sm'
-                        : isLight ? 'border-[#ded7ca] bg-white text-[#706456]' : 'border-[#30261e] bg-[#1a1512] text-[#8e8172]'
+                        ? 'border-[#c85a17] bg-[#c85a17] text-white shadow-sm'
+                        : isLight ? 'border-[#e0d3c0] bg-white text-[#5c4536]' : 'border-[#3f271a] bg-[#26170f] text-[#cfc1b4]'
                     }`}
                   >
                     {pct === 0 ? t.noTip : `${pct}%`}
@@ -262,7 +280,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             </div>
 
             <div className={`space-y-1.5 text-xs border-t pt-2 ${
-              isLight ? 'border-[#eee7db] text-[#6e6153]' : 'border-[#261e17] text-[#a6998a]'
+              isLight ? 'border-[#f2ece2] text-[#5c4536]' : 'border-[#331f14] text-[#cfc1b4]'
             }`}>
               <div className="flex justify-between">
                 <span>{t.subtotal}</span>
@@ -277,17 +295,17 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 <span className="font-mono font-bold">${calculatedTip.toFixed(2)}</span>
               </div>
               <div className={`flex justify-between text-sm font-bold pt-1 border-t ${
-                isLight ? 'border-[#eee7db]' : 'border-[#2c2219]'
+                isLight ? 'border-[#e4d8c7]' : 'border-[#3f271a]'
               }`}>
                 <span>{t.totalPay}</span>
-                <span className="font-mono text-[#b58548] text-base">${total.toFixed(2)}</span>
+                <span className="font-mono text-[#c85a17] text-base font-black">${total.toFixed(2)}</span>
               </div>
             </div>
 
             <button
               type="button"
               onClick={() => onProceedToCheckout(subtotal, tax, calculatedTip, total)}
-              className="w-full py-3.5 bg-[#b58548] hover:bg-[#9c6e33] text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
+              className="w-full py-3.5 bg-[#c85a17] hover:bg-[#b54d0f] text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
             >
               <span>{t.proceedCheckout}</span>
               <ArrowRight className="w-4 h-4" />
