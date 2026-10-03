@@ -54,7 +54,7 @@ export const OrderingSystem: React.FC<OrderingSystemProps> = ({
         const q = searchQuery.toLowerCase();
         const matchesName = item.name.toLowerCase().includes(q) || (item.nameEn && item.nameEn.toLowerCase().includes(q));
         const matchesDesc = item.description.toLowerCase().includes(q) || (item.descriptionEn && item.descriptionEn.toLowerCase().includes(q));
-        const matchesSub = item.subcategory.toLowerCase().includes(q);
+        const matchesSub = item.subcategory.toLowerCase().includes(q) || (item.subcategoryEn && item.subcategoryEn.toLowerCase().includes(q));
         if (!matchesName && !matchesDesc && !matchesSub) return false;
       }
 
@@ -325,6 +325,13 @@ export const OrderingSystem: React.FC<OrderingSystemProps> = ({
                               alt={itemName}
                               className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
                               loading="lazy"
+                              onError={(e) => {
+                                const target = e.currentTarget;
+                                if (!target.dataset.fallback) {
+                                  target.dataset.fallback = 'true';
+                                  target.src = 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80';
+                                }
+                              }}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent opacity-85" />
                             

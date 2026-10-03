@@ -82,6 +82,13 @@ export const ItemCustomizerModal: React.FC<ItemCustomizerModalProps> = ({
             src={item.image}
             alt={itemName}
             className="w-full h-full object-cover object-center"
+            onError={(e) => {
+              const target = e.currentTarget;
+              if (!target.dataset.fallback) {
+                target.dataset.fallback = 'true';
+                target.src = 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80';
+              }
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
 

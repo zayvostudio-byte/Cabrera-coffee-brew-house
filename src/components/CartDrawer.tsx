@@ -176,6 +176,13 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                       src={cartItem.item.image}
                       alt={itemName}
                       className="w-full h-full object-cover"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (!target.dataset.fallback) {
+                          target.dataset.fallback = 'true';
+                          target.src = 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80';
+                        }
+                      }}
                     />
                   </div>
 

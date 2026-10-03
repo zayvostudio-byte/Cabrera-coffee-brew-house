@@ -294,6 +294,13 @@ END:VCALENDAR`;
                               src={area.image}
                               alt={area.title}
                               className="w-full h-full object-cover"
+                              onError={(e) => {
+                                const target = e.currentTarget;
+                                if (!target.dataset.fallback) {
+                                  target.dataset.fallback = 'true';
+                                  target.src = 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80';
+                                }
+                              }}
                             />
                           </div>
                           <div>
